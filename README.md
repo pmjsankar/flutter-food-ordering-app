@@ -1,4 +1,4 @@
-# live_menu_flutter
+# livemenu
 
 A new Flutter application to show live menu of restaurants
 

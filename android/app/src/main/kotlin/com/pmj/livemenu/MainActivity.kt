@@ -1,4 +1,4 @@
-package com.flutter.sample
+package com.pmj.livemenu
 
 import io.flutter.embedding.android.FlutterActivity
 
