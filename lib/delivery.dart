@@ -2,11 +2,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:livemenu/popular.dart';
+import 'package:livemenu/delivery_model.dart';
 
 import 'gridview.dart';
 import 'main.dart';
-import 'netwoklayer.dart';
+import 'networklayer.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
@@ -16,14 +16,14 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 ];
 
-class Home extends StatefulWidget {
-  Home({Key key}) : super(key: key);
+class Delivery extends StatefulWidget {
+  Delivery({Key key}) : super(key: key);
 
   @override
-  _Home createState() => _Home();
+  _Delivery createState() => _Delivery();
 }
 
-class _Home extends State<Home> {
+class _Delivery extends State<Delivery> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
@@ -175,13 +175,13 @@ class _Home extends State<Home> {
             Padding(
               padding: const EdgeInsets.only(
                   left: 6.0, top: 0.0, right: 6.0, bottom: 10.0),
-              child: new FutureBuilder<List<Popular>>(
-                future: fetchCountry(new http.Client()),
+              child: new FutureBuilder<List<DeliveryModel>>(
+                future: fetchDeliveryDetails(new http.Client()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) print(snapshot.error);
 
                   return snapshot.hasData
-                      ? new CountyGridView(country: snapshot.data)
+                      ? new RestaurantGridView(restaurantList: snapshot.data)
                       : new Center(child: new CircularProgressIndicator());
                 },
               ),

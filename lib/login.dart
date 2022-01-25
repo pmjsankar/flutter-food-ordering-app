@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'main.dart';
 
@@ -12,6 +13,9 @@ class Login extends StatefulWidget {
 class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light));
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -29,7 +33,7 @@ class _Login extends State<Login> {
           children: <Widget>[
             Padding(
               padding:
-                  EdgeInsets.only(left: 15.0, right: 15.0, top: 70, bottom: 0),
+              EdgeInsets.only(left: 15.0, right: 15.0, top: 70, bottom: 0),
               child: TextFormField(
                 decoration: InputDecoration(
                   icon: Icon(Icons.supervised_user_circle_outlined),
@@ -69,8 +73,8 @@ class _Login extends State<Login> {
               ),
             ),
             Container(
-              height: 50,
-              width: 250,
+              height: 45,
+              width: 200,
               decoration: BoxDecoration(
                   color: Colors.blue, borderRadius: BorderRadius.circular(20)),
               child: TextButton(
@@ -80,7 +84,7 @@ class _Login extends State<Login> {
                 },
                 child: Text(
                   'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 25),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
@@ -115,7 +119,14 @@ class _Login extends State<Login> {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text("Password reset"),
-      content: Text("Password reset mail sent to your email id"),
+      content: Text(
+        "Password reset mail sent to your email id",
+        style: TextStyle(
+          fontSize: 16.0,
+          color: Colors.black38,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
       actions: [
         okButton,
       ],

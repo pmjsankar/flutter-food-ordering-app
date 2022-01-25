@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:livemenu/DiningModel.dart';
+import 'package:livemenu/dining_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'netwoklayer.dart';
+import 'networklayer.dart';
 
 class Dining extends StatefulWidget {
   Dining({Key key}) : super(key: key);

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:livemenu/login.dart';
 import 'package:livemenu/profile.dart';
 
+import 'delivery.dart';
 import 'dining.dart';
-import 'home.dart';
 import 'offers.dart';
 
 final List<String> imgList = [
@@ -75,7 +75,7 @@ final List<Widget> imageSliders = imgList
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List _children = [
-    Home(),
+    Delivery(),
     Dining(),
     Offers(),
     Profile(),

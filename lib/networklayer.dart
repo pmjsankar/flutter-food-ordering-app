@@ -3,23 +3,24 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:livemenu/popular.dart';
+import 'package:livemenu/delivery_model.dart';
 
-import 'DiningModel.dart';
+import 'dining_model.dart';
 
-Future<List<Popular>> fetchCountry(http.Client client) async {
+Future<List<DeliveryModel>> fetchDeliveryDetails(http.Client client) async {
   final response =
       await client.get(Uri.parse('https://demo1784049.mockable.io/livemenu'));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseData, response.body);
 }
 
-// A function that will convert a response body into a List<Popular>
-List<Popular> parseData(String responseBody) {
+// A function that will convert a response body into a List
+List<DeliveryModel> parseData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
-  List<Popular> list =
-      parsed.map<Popular>((json) => new Popular.fromJson(json)).toList();
+  List<DeliveryModel> list = parsed
+      .map<DeliveryModel>((json) => new DeliveryModel.fromJson(json))
+      .toList();
   return list;
 }
 
@@ -30,7 +31,7 @@ Future<List<DiningModel>> getDining(http.Client client) async {
   return compute(parseDiningData, response.body);
 }
 
-// A function that will convert a response body into a List<Popular>
+// A function that will convert a response body into a List
 List<DiningModel> parseDiningData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 

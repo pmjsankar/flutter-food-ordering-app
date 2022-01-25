@@ -50,7 +50,7 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-    # To add assets to your application, add an assets section, like this:
+  # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/ic_location.png
     - assets/images/banner1.webp
@@ -75,9 +75,7 @@ flutter:
   # example:
   fonts:
     - family: Cera
-      fonts:
-        - asset: assets/fonts/fontbold.otf
-        - asset: assets/fonts/fontregular.otf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

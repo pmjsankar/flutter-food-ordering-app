@@ -14,7 +14,6 @@ class Profile extends StatefulWidget {
 class _Profile extends State<Profile> {
   var _image;
   var imagePicker;
-  var type;
 
   _Profile();
 
@@ -91,7 +90,7 @@ class _Profile extends State<Profile> {
                               bottom: 10,
                             ),
                             child: Text(
-                              'Jayasankar M',
+                              'Jay Shankar',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 22),
                             ),
@@ -103,7 +102,7 @@ class _Profile extends State<Profile> {
                           Padding(
                             padding: const EdgeInsets.only(top: 5.0),
                             child: Text(
-                              'pm.jays@gmail.com',
+                              'user1@mail.com',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 15),
                             ),
@@ -112,7 +111,7 @@ class _Profile extends State<Profile> {
                             padding:
                                 const EdgeInsets.only(top: 5.0, bottom: 20),
                             child: Text(
-                              '9447541764',
+                              '9400 123 456',
                               style:
                                   TextStyle(color: Colors.black, fontSize: 15),
                             ),
@@ -223,7 +222,7 @@ class _Profile extends State<Profile> {
                             child: InkWell(
                               onTap: () => ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
-                                content: Text("No help"),
+                                content: Text("Coming soon..."),
                               )),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,

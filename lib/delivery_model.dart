@@ -1,4 +1,4 @@
-class Popular {
+class DeliveryModel {
   String title;
   String price;
   String rating;
@@ -6,7 +6,7 @@ class Popular {
   String desc;
   String imageUrl;
 
-  Popular(
+  DeliveryModel(
       {this.title,
       this.price,
       this.rating,
@@ -14,8 +14,8 @@ class Popular {
       this.desc,
       this.imageUrl});
 
-  factory Popular.fromJson(Map<String, dynamic> json) {
-    return new Popular(
+  factory DeliveryModel.fromJson(Map<String, dynamic> json) {
+    return new DeliveryModel(
       title: json['title'] as String,
       price: json['price'] as String,
       rating: json['rating'] as String,
