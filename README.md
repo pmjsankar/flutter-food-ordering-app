@@ -1,6 +1,6 @@
-# livemenu
+# Food ordering app on Flutter
 
-A new Flutter application to show live menu of restaurants
+A new Flutter application to show the menu of restaurants.
 
 ## Getting Started
 
