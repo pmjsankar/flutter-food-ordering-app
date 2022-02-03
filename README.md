@@ -6,6 +6,5 @@ A sample Flutter application to show the menu of restaurants.
 
 ## Screenshots
 
-| ![1](screenshots/ss_profile.png) | ![2](screenshots/ss_delivery.png)
-| ![3](screenshots/ss_dining.png) | ![4](screenshots/ss_login.png) | 
+![1](screenshots/screens.png) 
 
