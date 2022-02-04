@@ -144,6 +144,7 @@ class _Profile extends State<Profile> {
                                   children: [
                                     Icon(
                                       Icons.library_books,
+                                      color: Colors.blueGrey,
                                       size: 48,
                                     ),
                                     Padding(
@@ -173,6 +174,7 @@ class _Profile extends State<Profile> {
                                   children: [
                                     Icon(
                                       Icons.account_box_sharp,
+                                      color: Colors.blueGrey,
                                       size: 48,
                                     ),
                                     Padding(
@@ -203,6 +205,7 @@ class _Profile extends State<Profile> {
                                     Icon(
                                       Icons.notifications,
                                       size: 48,
+                                      color: Colors.blueGrey,
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
@@ -230,6 +233,7 @@ class _Profile extends State<Profile> {
                                   Icon(
                                     Icons.help_center,
                                     size: 48,
+                                    color: Colors.blueGrey,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15.0),

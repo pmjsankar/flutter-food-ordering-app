@@ -30,7 +30,7 @@ class _Delivery extends State<Delivery> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       body: SingleChildScrollView(
@@ -55,7 +55,10 @@ class _Delivery extends State<Delivery> {
                     padding: const EdgeInsets.only(left: 3.0, top: 60.0),
                     child: Text(
                       'Kakkanad, Kochi',
-                      style: TextStyle(color: Colors.black, fontSize: 15),
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
                     ),
                   ),
                 ),
@@ -114,9 +117,21 @@ class _Delivery extends State<Delivery> {
                 );
               }).toList(),
             ),
-            Row(children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, top: 20.0, right: 10.0, bottom: 10.0),
+              child: Text(
+                'Popular',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: <
+                Widget>[
               Container(
-                  margin: EdgeInsets.only(top: 20, left: 17, right: 4),
+                  margin: EdgeInsets.only(top: 20, left: 17, right: 6),
                   width: 75.0,
                   height: 75.0,
                   padding: const EdgeInsets.only(
@@ -128,7 +143,7 @@ class _Delivery extends State<Delivery> {
                           fit: BoxFit.scaleDown,
                           image: new AssetImage("assets/images/burger.png")))),
               Container(
-                  margin: EdgeInsets.only(top: 20, left: 4, right: 4),
+                  margin: EdgeInsets.only(top: 20, right: 6),
                   width: 75.0,
                   height: 75.0,
                   padding: const EdgeInsets.only(
@@ -140,7 +155,7 @@ class _Delivery extends State<Delivery> {
                           fit: BoxFit.scaleDown,
                           image: new AssetImage("assets/images/masala.png")))),
               Container(
-                  margin: EdgeInsets.only(top: 20, left: 4, right: 4),
+                  margin: EdgeInsets.only(top: 20, right: 6),
                   width: 75.0,
                   height: 75.0,
                   padding: const EdgeInsets.only(
@@ -152,7 +167,7 @@ class _Delivery extends State<Delivery> {
                           fit: BoxFit.scaleDown,
                           image: new AssetImage("assets/images/pizza.png")))),
               Container(
-                  margin: EdgeInsets.only(top: 20, left: 4, right: 5),
+                  margin: EdgeInsets.only(top: 20, right: 17),
                   width: 75.0,
                   height: 75.0,
                   padding: const EdgeInsets.only(
@@ -168,8 +183,11 @@ class _Delivery extends State<Delivery> {
               padding: const EdgeInsets.only(
                   left: 20.0, top: 20.0, right: 10.0, bottom: 10.0),
               child: Text(
-                'Collections',
-                style: TextStyle(color: Colors.black, fontSize: 16),
+                'Top offers!',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Padding(

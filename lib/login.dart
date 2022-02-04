@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'main.dart';
 
+//
 class Login extends StatefulWidget {
   Login({Key key}) : super(key: key);
 
@@ -15,7 +16,7 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light));
+        statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -32,8 +33,31 @@ class _Login extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, top: 60.0, right: 10.0, bottom: 0.0),
+              child: Text(
+                'Live Menu',
+                style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 30,
+                    fontFamily: 'Cherry',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 20.0, top: 0.0, right: 10.0, bottom: 0.0),
+              child: Text(
+                'Curated food menu from your nearby restaurants',
+                style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
+            Padding(
               padding:
-              EdgeInsets.only(left: 15.0, right: 15.0, top: 70, bottom: 0),
+                  EdgeInsets.only(left: 15.0, right: 15.0, top: 30, bottom: 0),
               child: TextFormField(
                 decoration: InputDecoration(
                   icon: Icon(Icons.supervised_user_circle_outlined),

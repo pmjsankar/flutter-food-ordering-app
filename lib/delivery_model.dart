@@ -3,6 +3,7 @@ class DeliveryModel {
   String price;
   String rating;
   String offer;
+  String address;
   String desc;
   String imageUrl;
 
@@ -11,6 +12,7 @@ class DeliveryModel {
       this.price,
       this.rating,
       this.offer,
+      this.address,
       this.desc,
       this.imageUrl});
 
@@ -20,6 +22,7 @@ class DeliveryModel {
       price: json['price'] as String,
       rating: json['rating'] as String,
       offer: json['offer'] as String,
+      address: json['address'] as String,
       desc: json['desc'] as String,
       imageUrl: json['imageUrl'] as String,
     );

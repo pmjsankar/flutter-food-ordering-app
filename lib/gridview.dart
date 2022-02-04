@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livemenu/delivery_model.dart';
+import 'package:livemenu/menu.dart';
 
 class RestaurantGridView extends StatefulWidget {
   final List<DeliveryModel> restaurantList;
@@ -33,7 +34,8 @@ class _RestaurantGridView extends State<RestaurantGridView> {
       child: new Card(
           elevation: 2,
           child: InkWell(
-              onTap: () => showSheet(obj),
+              onTap: () => Navigator.push(
+                  context, MaterialPageRoute(builder: (_) => Menu(obj: obj))),
               child: new Column(
                 children: <Widget>[
                   Stack(
@@ -75,7 +77,7 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                             Text(
                               obj.title,
                               style: TextStyle(
-                                  fontSize: 12.0,
+                                  fontSize: 16.0,
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -100,7 +102,7 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                                     obj.rating,
                                     style: TextStyle(
                                       fontWeight: FontWeight.normal,
-                                      fontSize: 10.0,
+                                      fontSize: 12.0,
                                       color: Colors.white,
                                     ),
                                   ),
@@ -119,9 +121,10 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                             Flexible(
                               child: Text(
                                 obj.desc,
+                                maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 12,
                                   color: Colors.black54,
                                 ),
                               ),
@@ -129,7 +132,9 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                             Text(
                               obj.price,
                               style: TextStyle(
+                                fontSize: 14,
                                 color: Colors.black54,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -143,57 +148,57 @@ class _RestaurantGridView extends State<RestaurantGridView> {
     );
   }
 
-  void showSheet(DeliveryModel obj) {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) => Container(
-              margin: EdgeInsets.all(10.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 122.0,
-                    child: ListView(
-                      scrollDirection: Axis.horizontal,
-                      children:
-                          List.generate(widget.restaurantList.length, (index) {
-                        return getHorizontalListItem(
-                            widget.restaurantList[index], context);
-                      }),
-                    ),
-                  ),
-                  Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              obj.title,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 5.0),
-                              child: Text(
-                                obj.rating,
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              decoration:
-                                  new BoxDecoration(color: Colors.green),
-                              padding: new EdgeInsets.all(4.0),
-                            ),
-                          ]))
-                ],
-              ),
-            ));
-  }
+  // void showSheet(DeliveryModel obj) {
+  //   showModalBottomSheet(
+  //       context: context,
+  //       builder: (context) => Container(
+  //             margin: EdgeInsets.all(10.0),
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 SizedBox(
+  //                   height: 122.0,
+  //                   child: ListView(
+  //                     scrollDirection: Axis.horizontal,
+  //                     children:
+  //                         List.generate(widget.restaurantList.length, (index) {
+  //                       return getHorizontalListItem(
+  //                           widget.restaurantList[index], context);
+  //                     }),
+  //                   ),
+  //                 ),
+  //                 Padding(
+  //                     padding: EdgeInsets.all(5.0),
+  //                     child: Column(
+  //                         crossAxisAlignment: CrossAxisAlignment.start,
+  //                         children: [
+  //                           Text(
+  //                             obj.title,
+  //                             style: TextStyle(
+  //                               fontSize: 16.0,
+  //                               color: Colors.black87,
+  //                               fontWeight: FontWeight.bold,
+  //                             ),
+  //                           ),
+  //                           Container(
+  //                             margin: EdgeInsets.only(top: 5.0),
+  //                             child: Text(
+  //                               obj.rating,
+  //                               style: TextStyle(
+  //                                 fontSize: 12.0,
+  //                                 color: Colors.white,
+  //                               ),
+  //                             ),
+  //                             decoration:
+  //                                 new BoxDecoration(color: Colors.green),
+  //                             padding: new EdgeInsets.all(4.0),
+  //                           ),
+  //                         ]))
+  //               ],
+  //             ),
+  //           ));
+  // }
 
   Container getHorizontalListItem(DeliveryModel object, BuildContext context) {
     return Container(

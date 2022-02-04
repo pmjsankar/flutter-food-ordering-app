@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import 'package:livemenu/delivery_model.dart';
 import 'package:livemenu/dining_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'menu.dart';
 import 'networklayer.dart';
 
 class Dining extends StatefulWidget {
@@ -30,7 +32,7 @@ class _Dining extends State<Dining> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
+        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
         body: Column(
@@ -61,18 +63,28 @@ class _Dining extends State<Dining> {
 
               return snapshot.hasData
                   ? new SingleChildScrollView(
+                padding: EdgeInsets.all(0),
                       physics: ScrollPhysics(),
                       child: Column(
                         children: <Widget>[
                           ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
+                              padding: EdgeInsets.only(top: 20),
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
-                                return getListItem(
-                                    snapshot.data[index], index, context);
+                                return InkWell(
+                                  onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => Menu(
+                                              obj: getDeliveryObj(
+                                                  snapshot.data[index])))),
+                                  child: getListItem(
+                                      snapshot.data[index], index, context),
+                                );
                               })
-                        ],
+                  ],
                       ),
                     )
                   : new Center(child: new CircularProgressIndicator());
@@ -83,22 +95,37 @@ class _Dining extends State<Dining> {
     ));
   }
 
+  DeliveryModel getDeliveryObj(DiningModel data) {
+    return DeliveryModel(
+      title: data.title,
+      price: '',
+      rating: data.rating,
+      offer: data.offer,
+      address: data.address,
+      desc: data.desc,
+      imageUrl: data.imageUrl,
+    );
+  }
+
   Container getListItem(DiningModel obj, int index, BuildContext context) {
     return Container(
         child: Card(
       margin: EdgeInsets.only(
         bottom: 20,
+        top: 0,
         left: 10,
         right: 10,
       ),
       elevation: 2,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           Expanded(
             flex: 4,
             child: Image.network(obj.imageUrl,
-                width: 150, height: 160, fit: BoxFit.fill),
+                width: 150, height: 180, fit: BoxFit.fill),
           ),
           Expanded(
             flex: 6,
@@ -116,9 +143,9 @@ class _Dining extends State<Dining> {
                           obj.title,
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                            fontSize: 17.0,
+                            fontSize: 18.0,
                             color: Colors.black87,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.bold,
                           ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
@@ -133,6 +160,7 @@ class _Dining extends State<Dining> {
                           child: InkWell(
                             splashColor: Colors.grey, // Splash color
                             onTap: () {
+                              HapticFeedback.mediumImpact();
                               _onSelected(index);
                             },
                             child: SizedBox(
@@ -160,11 +188,12 @@ class _Dining extends State<Dining> {
                     obj.desc,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontSize: 10.0,
+                      fontSize: 12.0,
                       color: Colors.black45,
                       fontWeight: FontWeight.normal,
                     ),
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
                 ),
                 Padding(
@@ -174,7 +203,7 @@ class _Dining extends State<Dining> {
                     obj.address,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontSize: 10.0,
+                      fontSize: 12.0,
                       color: Colors.black38,
                       fontWeight: FontWeight.normal,
                     ),
@@ -188,8 +217,8 @@ class _Dining extends State<Dining> {
                     obj.timing,
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      fontSize: 10.0,
-                      color: Colors.black38,
+                      fontSize: 12.0,
+                      color: Colors.black87,
                       fontWeight: FontWeight.normal,
                     ),
                     overflow: TextOverflow.ellipsis,
@@ -218,7 +247,7 @@ class _Dining extends State<Dining> {
                           obj.rating,
                           style: TextStyle(
                             fontWeight: FontWeight.normal,
-                            fontSize: 12.0,
+                            fontSize: 14.0,
                             color: Colors.white,
                           ),
                         ),
@@ -240,8 +269,8 @@ class _Dining extends State<Dining> {
                               _launchURL(obj.map);
                             },
                             child: SizedBox(
-                                width: 24,
-                                height: 24,
+                                width: 28,
+                                height: 28,
                                 child: Icon(
                                   Icons.room_outlined,
                                   size: 18,
@@ -264,8 +293,8 @@ class _Dining extends State<Dining> {
                                   subject: obj.title + "\n" + obj.desc);
                             },
                             child: SizedBox(
-                                width: 24,
-                                height: 24,
+                                width: 28,
+                                height: 28,
                                 child: Icon(
                                   Icons.ios_share_sharp,
                                   size: 18,
