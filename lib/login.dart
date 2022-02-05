@@ -23,7 +23,7 @@ class _Login extends State<Login> {
           image: DecorationImage(
             image: AssetImage("assets/images/loginbg.jpeg"),
             colorFilter: new ColorFilter.mode(
-                Colors.black.withOpacity(0.4), BlendMode.dstATop),
+                Colors.black.withOpacity(0.1), BlendMode.dstATop),
             fit: BoxFit.cover,
           ),
         ),
@@ -93,7 +93,10 @@ class _Login extends State<Login> {
               },
               child: Text(
                 'Forgot Password',
-                style: TextStyle(color: Colors.blue, fontSize: 15),
+                style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             Container(

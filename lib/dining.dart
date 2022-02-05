@@ -6,7 +6,6 @@ import 'package:livemenu/dining_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'menu.dart';
 import 'networklayer.dart';
 
 class Dining extends StatefulWidget {
@@ -73,16 +72,8 @@ class _Dining extends State<Dining> {
                               padding: EdgeInsets.only(top: 20),
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
-                                return InkWell(
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => Menu(
-                                              obj: getDeliveryObj(
-                                                  snapshot.data[index])))),
-                                  child: getListItem(
-                                      snapshot.data[index], index, context),
-                                );
+                                return getListItem(
+                                    snapshot.data[index], index, context);
                               })
                   ],
                       ),

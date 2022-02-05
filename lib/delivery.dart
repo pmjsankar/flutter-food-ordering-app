@@ -30,7 +30,7 @@ class _Delivery extends State<Delivery> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
+        statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       body: SingleChildScrollView(
@@ -119,7 +119,7 @@ class _Delivery extends State<Delivery> {
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 20.0, top: 20.0, right: 10.0, bottom: 10.0),
+                  left: 20.0, top: 15.0, right: 10.0, bottom: 5.0),
               child: Text(
                 'Popular',
                 style: TextStyle(
