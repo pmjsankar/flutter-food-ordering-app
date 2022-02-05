@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:livemenu/delivery_model.dart';
-import 'package:livemenu/dining_model.dart';
 import 'package:livemenu/menu_model.dart';
 
 class Checkout extends StatefulWidget {
   final DeliveryModel obj;
-  final int totalPrice;
+  int totalPrice;
+  int deliveryFee = 24;
+  int tax = 8;
   final List<MenuModel> selectedItems;
 
   Checkout({Key key, this.obj, this.selectedItems, this.totalPrice})
@@ -24,10 +25,13 @@ class _Checkout extends State<Checkout> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
+
+    int totalPay = widget.totalPrice + widget.deliveryFee + widget.tax;
     return Scaffold(
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -193,162 +197,16 @@ class _Checkout extends State<Checkout> {
             ),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 12, left: 16),
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(3),
-                      border: Border.all(width: 2, color: Colors.green)),
-                  child: Icon(
-                    Icons.circle,
-                    color: Colors.green,
-                    size: 8,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 16, right: 16, top: 20),
-                  child: Text(
-                    'Masala dosa',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 20),
-              child: Text(
-                '2',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
-              child: Text(
-                '₹80',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 0),
-              child: Text(
-                '₹160',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Divider(
-          thickness: 1,
-          indent: 16,
-          endIndent: 16,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 6, left: 16),
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(3),
-                      border: Border.all(width: 2, color: Colors.red)),
-                  child: Icon(
-                    Icons.circle,
-                    color: Colors.red,
-                    size: 8,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 16, right: 16, top: 6),
-                  child: Text(
-                    'Chicken Biriyani',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 20),
-              child: Text(
-                '1',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
-              child: Text(
-                '₹160',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 0),
-              child: Text(
-                '₹160',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
+        Container(
+          height: 300,
+          child: ListView.builder(
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              padding: EdgeInsets.only(top: 6),
+              itemCount: widget.selectedItems.length,
+              itemBuilder: (context, index) {
+                return getListItem(widget.selectedItems[index], index, context);
+              }),
         ),
         Divider(
           thickness: 1,
@@ -373,7 +231,7 @@ class _Checkout extends State<Checkout> {
             Padding(
               padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 14),
               child: Text(
-                '₹24',
+                '₹' + widget.deliveryFee.toString(),
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 14.0,
@@ -402,7 +260,7 @@ class _Checkout extends State<Checkout> {
             Padding(
               padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 14),
               child: Text(
-                '₹4.5',
+                '₹' + widget.tax.toString(),
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 14.0,
@@ -436,7 +294,7 @@ class _Checkout extends State<Checkout> {
             Padding(
               padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 14),
               child: Text(
-                '₹' + widget.totalPrice.toString(),
+                '₹' + totalPay.toString(),
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 16.0,
@@ -446,6 +304,11 @@ class _Checkout extends State<Checkout> {
               ),
             ),
           ],
+        ),
+        Divider(
+          thickness: 5,
+          indent: 16,
+          endIndent: 16,
         ),
         Expanded(
           child: Align(
@@ -459,7 +322,7 @@ class _Checkout extends State<Checkout> {
                     padding:
                         EdgeInsets.only(bottom: 5, left: 48, right: 8, top: 0),
                     child: Text(
-                      '₹' + widget.totalPrice.toString(),
+                      '₹' + totalPay.toString(),
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         fontSize: 18.0,
@@ -502,100 +365,88 @@ class _Checkout extends State<Checkout> {
     ));
   }
 
-  Container getListItem(DiningModel obj, int index, BuildContext context) {
+  Container getListItem(MenuModel obj, int index, BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(bottom: BorderSide(color: Colors.black12)),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            flex: 6,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 12, left: 16),
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(3),
-                      border: Border.all(width: 2, color: Colors.green)),
-                  child: Icon(
-                    Icons.circle,
-                    color: Colors.green,
-                    size: 8,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 6, left: 16, right: 10, top: 8),
-                  child: Text(
-                    obj.title,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 17.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 12, left: 16),
+                    padding: EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(3),
+                        border: Border.all(width: 2, color: Colors.green)),
+                    child: Icon(
+                      Icons.circle,
+                      color: Colors.green,
+                      size: 8,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 2,
                   ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 16, right: 10, top: 0),
-                  child: Text(
-                    obj.offer,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black45,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 16, right: 10, top: 0),
-                  child: OutlinedButton(
-                    onPressed: () {
-                      setState(() {
-                        itemAddedToCart = true;
-                      });
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 1.0, color: Colors.red),
-                    ),
-                    child: const Text(
-                      "+ ADD",
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: 5, left: 16, right: 16, top: 20),
+                    child: Text(
+                      obj.title,
+                      textAlign: TextAlign.start,
                       style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.red,
+                        fontSize: 16.0,
+                        color: Colors.black,
                         fontWeight: FontWeight.normal,
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ],
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 20),
+                child: Text(
+                  '1',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            flex: 3,
-            child: Container(
-              margin: EdgeInsets.only(top: 14, bottom: 14, left: 10, right: 10),
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding:
+                    EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
+                child: Text(
+                  '₹' + obj.price.toString(),
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Image.network(obj.imageUrl,
-                    width: 100, height: 110, fit: BoxFit.fill),
+              Padding(
+                padding:
+                    EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 0),
+                child: Text(
+                  '₹' + obj.price.toString(),
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),

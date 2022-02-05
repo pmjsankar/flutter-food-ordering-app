@@ -39,6 +39,9 @@ class _Menu extends State<Menu> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
+
+    var itemCount = _selectedItems.length;
+
     return Scaffold(
         body: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,106 +101,113 @@ class _Menu extends State<Menu> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Padding(
+            Flexible(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.only(
+                          bottom: 5, left: 20, right: 10, top: 6),
+                      child: Flexible(
+                        child: Text(
+                          widget.obj.desc,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.black38,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                        ),
+                      )),
+                  Padding(
                     padding:
-                        EdgeInsets.only(bottom: 5, left: 20, right: 10, top: 6),
-                    child: Flexible(
-                      child: Text(
-                        widget.obj.desc,
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.black38,
-                          fontWeight: FontWeight.normal,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 3,
+                        EdgeInsets.only(bottom: 5, left: 20, right: 10, top: 2),
+                    child: Text(
+                      widget.obj.address,
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.normal,
                       ),
-                    )),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 20, right: 10, top: 2),
-                  child: Text(
-                    widget.obj.address,
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black38,
-                      fontWeight: FontWeight.normal,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
-                ),
-              ],
+                ],
+              ),
+              flex: 4,
             ),
-            Padding(
-                padding:
-                    EdgeInsets.only(bottom: 6, left: 12, right: 12, top: 0),
-                child: Card(
-                  elevation: 3,
-                  color: Colors.green,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(2.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.white,
-                              size: 14,
-                            ),
-                            Text(
-                              widget.obj.rating,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16.0,
+            Flexible(
+              child: Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 6, left: 12, right: 12, top: 0),
+                  child: Card(
+                    elevation: 3,
+                    color: Colors.green,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(2.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.star,
                                 color: Colors.white,
+                                size: 14,
                               ),
-                            ),
-                          ],
+                              Text(
+                                widget.obj.rating,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 4, right: 4, bottom: 6),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              '2,456',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
+                        Padding(
+                          padding:
+                              EdgeInsets.only(left: 4, right: 4, bottom: 6),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                '2,456',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              'Reviews',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
+                              Text(
+                                'Reviews',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 10.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              flex: 1,
+            ),
           ],
         ),
         Padding(
@@ -261,7 +271,7 @@ class _Menu extends State<Menu> {
                       'Veg',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
+                        fontSize: 14.0,
                         color: Colors.black,
                       ),
                     ),
@@ -281,7 +291,7 @@ class _Menu extends State<Menu> {
                       'Non-Veg',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
+                        fontSize: 14.0,
                         color: Colors.black,
                       ),
                     ),
@@ -292,8 +302,8 @@ class _Menu extends State<Menu> {
                   child: Text(
                     'Recommended',
                     style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
                       color: Colors.black,
                     ),
                   ),
@@ -338,7 +348,9 @@ class _Menu extends State<Menu> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '1 ITEM  |  $totalPrice',
+                      (itemCount > 1)
+                          ? '$itemCount ITEMS  |  $totalPrice'
+                          : '$itemCount ITEM  |  $totalPrice',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
@@ -437,7 +449,7 @@ class _Menu extends State<Menu> {
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.black45,
+                          color: Colors.black87,
                           fontWeight: FontWeight.normal,
                         ),
                         overflow: TextOverflow.ellipsis,
