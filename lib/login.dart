@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
-import 'main.dart';
+import 'package:livemenu/otp.dart';
 
 //
 class Login extends StatefulWidget {
@@ -12,41 +11,31 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  TextEditingController phoneController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/loginbg.jpeg"),
-            colorFilter: new ColorFilter.mode(
-                Colors.black.withOpacity(0.1), BlendMode.dstATop),
-            fit: BoxFit.cover,
-          ),
-        ),
+      body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.only(
-                  left: 20.0, top: 60.0, right: 10.0, bottom: 0.0),
+                  left: 20.0, top: 90.0, right: 10.0, bottom: 0.0),
               child: Text(
                 'Live Menu',
                 style: TextStyle(
-                    color: Colors.green,
+                    color: Colors.blueGrey,
                     fontSize: 30,
-                    fontFamily: 'Cherry',
                     fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 20.0, top: 0.0, right: 10.0, bottom: 0.0),
+                  left: 20.0, top: 10.0, right: 10.0, bottom: 0.0),
               child: Text(
                 'Curated food menu from your nearby restaurants',
                 style: TextStyle(
@@ -56,28 +45,44 @@ class _Login extends State<Login> {
               ),
             ),
             Padding(
-              padding:
-                  EdgeInsets.only(left: 15.0, right: 15.0, top: 30, bottom: 0),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.supervised_user_circle_outlined),
-                  labelText: 'Username',
-                  labelStyle: TextStyle(
-                    color: Colors.black,
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                ),
+              padding: const EdgeInsets.only(
+                  left: 20.0, top: 20.0, right: 10.0, bottom: 0.0),
+              child: IconButton(
+                iconSize: 200,
+                onPressed: () {},
+                icon: CircleAvatar(
+                    radius: 200,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: AssetImage("assets/images/login.avif")),
               ),
             ),
             Padding(
               padding: const EdgeInsets.only(
-                  left: 15.0, right: 15.0, top: 0, bottom: 0),
+                  left: 20.0, top: 50.0, right: 10.0, bottom: 0.0),
+              child: Text(
+                'Login with your mobile number',
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal),
+              ),
+            ),
+            Padding(
+              padding:
+                  EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 0),
               child: TextFormField(
+                maxLength: 10,
+                controller: phoneController,
+                keyboardType: TextInputType.number,
+                onChanged: (text) {
+                  if (text.length == 10) {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  }
+                },
                 decoration: InputDecoration(
-                  icon: Icon(Icons.password),
-                  labelText: 'Password',
+                  icon: Icon(Icons.phone),
+                  labelText: 'Mobile number',
                   labelStyle: TextStyle(
                     color: Colors.black,
                   ),
@@ -87,83 +92,43 @@ class _Login extends State<Login> {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                showAlertDialog(context);
-              },
-              child: Text(
-                'Forgot Password',
-                style: TextStyle(
-                    color: Colors.blue,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Container(
-              height: 45,
-              width: 200,
-              decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => HomePage()));
-                },
-                child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ),
-            ),
             SizedBox(
-              height: 100,
+              height: 20,
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'New User? Create Account',
-                  style: TextStyle(color: Colors.blue, fontSize: 15),
-                ),
-              ),
-            )
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(createRoute(Otp()));
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      left: 30.0, right: 30.0, top: 10, bottom: 10),
+                  child: Text(
+                    'Next',
+                    style:
+                        TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                  ),
+                ))
           ],
         ),
       ),
     );
   }
 
-  showAlertDialog(BuildContext context) {
-    // set up the button
-    Widget okButton = TextButton(
-      child: Text("OK"),
-      onPressed: () {
-        Navigator.of(context).pop(); // dismiss dialog
-      },
-    );
+  Route createRoute(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(1.0, 0.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
 
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text("Password reset"),
-      content: Text(
-        "Password reset mail sent to your email id",
-        style: TextStyle(
-          fontSize: 16.0,
-          color: Colors.black38,
-          fontWeight: FontWeight.normal,
-        ),
-      ),
-      actions: [
-        okButton,
-      ],
-    );
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
       },
     );
   }
