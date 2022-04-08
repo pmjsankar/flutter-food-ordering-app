@@ -12,6 +12,7 @@ class Login extends StatefulWidget {
 
 class _Login extends State<Login> {
   TextEditingController phoneController = new TextEditingController();
+  bool _validate = true;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _Login extends State<Login> {
               padding: const EdgeInsets.only(
                   left: 20.0, top: 50.0, right: 10.0, bottom: 0.0),
               child: Text(
-                'Login with your mobile number',
+                'Login/Sign up with your mobile number',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                     color: Colors.blueGrey,
@@ -78,11 +79,14 @@ class _Login extends State<Login> {
                 onChanged: (text) {
                   if (text.length == 10) {
                     FocusManager.instance.primaryFocus?.unfocus();
+                    setInputValidation(true);
                   }
                 },
                 decoration: InputDecoration(
                   icon: Icon(Icons.phone),
                   labelText: 'Mobile number',
+                  errorText:
+                      _validate ? null : 'Enter your 10 digit mobile number',
                   labelStyle: TextStyle(
                     color: Colors.black,
                   ),
@@ -97,7 +101,12 @@ class _Login extends State<Login> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(createRoute(Otp()));
+                  if (phoneController.text.length < 10) {
+                    setInputValidation(false);
+                  } else {
+                    setInputValidation(true);
+                    Navigator.of(context).push(createRoute(Otp()));
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -112,6 +121,18 @@ class _Login extends State<Login> {
         ),
       ),
     );
+  }
+
+  setInputValidation(bool valid) {
+    setState(() {
+      _validate = valid;
+    });
+  }
+
+  @override
+  void dispose() {
+    phoneController.dispose();
+    super.dispose();
   }
 
   Route createRoute(Widget page) {
