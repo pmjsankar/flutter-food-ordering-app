@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  shared_preferences: ^2.0.13
   url_launcher: ^6.0.18
   share_plus: ^3.0.4
 

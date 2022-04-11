@@ -105,7 +105,8 @@ class _Login extends State<Login> {
                     setInputValidation(false);
                   } else {
                     setInputValidation(true);
-                    Navigator.of(context).push(createRoute(Otp()));
+                    Navigator.of(context).push(
+                        createRoute(Otp(mobileNumber: phoneController.text)));
                   }
                 },
                 child: Padding(
@@ -134,23 +135,22 @@ class _Login extends State<Login> {
     phoneController.dispose();
     super.dispose();
   }
+}
 
-  Route createRoute(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(1.0, 0.0);
-        const end = Offset.zero;
-        const curve = Curves.ease;
+Route createRoute(Widget page) {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
 
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }

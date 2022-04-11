@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:livemenu/login.dart';
 import 'package:livemenu/profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
 import 'delivery.dart';
 import 'dining.dart';
 import 'offers.dart';
@@ -17,7 +19,16 @@ final List<String> imgList = [
 
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _MyApp();
+  }
+}
+
+class _MyApp extends State<MyApp> {
+  var mobileNumber;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -28,8 +39,29 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
-      home: new Login(),
+      home: navigateNext(),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLogin();
+  }
+
+  navigateNext() {
+    if (mobileNumber != null) {
+      return new HomePage();
+    } else {
+      return new Login();
+    }
+  }
+
+  getLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      mobileNumber = prefs.getString(Constants.login);
+    });
   }
 }
 

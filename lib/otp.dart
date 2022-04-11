@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
+import 'login.dart';
 import 'main.dart';
 
-//
 class Otp extends StatefulWidget {
-  Otp({Key key}) : super(key: key);
+  final String mobileNumber;
+
+  Otp({Key key, this.mobileNumber}) : super(key: key);
 
   @override
   _Otp createState() => _Otp();
@@ -13,6 +17,7 @@ class Otp extends StatefulWidget {
 
 class _Otp extends State<Otp> {
   TextEditingController otpController = new TextEditingController();
+  bool _validate = true;
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +87,7 @@ class _Otp extends State<Otp> {
                 decoration: InputDecoration(
                   icon: Icon(Icons.password),
                   labelText: 'OTP',
+                  errorText: _validate ? null : 'Enter the 4 digit OTP',
                   labelStyle: TextStyle(
                     color: Colors.black,
                   ),
@@ -91,6 +97,7 @@ class _Otp extends State<Otp> {
                 ),
                 onChanged: (text) {
                   if (text.length == 4) {
+                    setInputValidation(true);
                     FocusManager.instance.primaryFocus?.unfocus();
                   }
                 },
@@ -101,9 +108,16 @@ class _Otp extends State<Otp> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  if (otpController.text.length == 4) {
-                    Navigator.push(
-                        context, MaterialPageRoute(builder: (_) => HomePage()));
+                  if (otpController.text.length < 4) {
+                    setInputValidation(false);
+                  } else {
+                    setInputValidation(true);
+                    saveLogin(widget.mobileNumber);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      createRoute(HomePage()),
+                      (route) => false,
+                    );
                   }
                 },
                 child: Padding(
@@ -119,5 +133,16 @@ class _Otp extends State<Otp> {
         ),
       ),
     );
+  }
+
+  setInputValidation(bool valid) {
+    setState(() {
+      _validate = valid;
+    });
+  }
+
+  saveLogin(String mobileNumber) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.login, mobileNumber);
   }
 }

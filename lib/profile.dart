@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'constants.dart';
+import 'login.dart';
 
 class Profile extends StatefulWidget {
   Profile();
@@ -14,6 +18,7 @@ class Profile extends StatefulWidget {
 class _Profile extends State<Profile> {
   var _image;
   var imagePicker;
+  var mobileNumber = '';
 
   _Profile();
 
@@ -21,6 +26,7 @@ class _Profile extends State<Profile> {
   void initState() {
     super.initState();
     imagePicker = new ImagePicker();
+    getLogin();
   }
 
   @override
@@ -43,9 +49,13 @@ class _Profile extends State<Profile> {
               width: double.maxFinite,
               child: Wrap(
                 children: [
-                  Image.asset(
-                    'assets/images/banner1.webp',
-                  )
+                  ColorFiltered(
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                    child: Image.asset(
+                      'assets/images/banner1.webp',
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -111,7 +121,7 @@ class _Profile extends State<Profile> {
                             padding:
                                 const EdgeInsets.only(top: 5.0, bottom: 20),
                             child: Text(
-                              '9400 123 456',
+                              mobileNumber,
                               style:
                                   TextStyle(color: Colors.black, fontSize: 15),
                             ),
@@ -246,10 +256,25 @@ class _Profile extends State<Profile> {
                                 ],
                               ),
                             ),
-                          )
+                          ),
                         ]),
                   ],
                 )),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: TextButton(
+                  onPressed: () {
+                    _showMyDialog();
+                  },
+                  child: const Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
@@ -303,5 +328,47 @@ class _Profile extends State<Profile> {
             ),
           );
         });
+  }
+
+  getLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      mobileNumber = prefs.getString(Constants.login) ?? '';
+    });
+  }
+
+  logout() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(Constants.login);
+    setState(() {
+      mobileNumber = '';
+    });
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: Text('Are you sure you want to logout?'),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  createRoute(Login()),
+                  (route) => false,
+                );
+                logout();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
