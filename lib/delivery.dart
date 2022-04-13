@@ -40,7 +40,9 @@ class _Delivery extends State<Delivery> {
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0, top: 50.0, bottom: 0),
               child: TextButton.icon(
-                  onPressed: () {},
+                  onPressed: () {
+                    _selectLocation(context);
+                  },
                   icon: Icon(
                     Icons.location_on_rounded,
                     color: Colors.red,
@@ -215,5 +217,102 @@ class _Delivery extends State<Delivery> {
         ],
       ),
     );
+  }
+
+  void _selectLocation(context) {
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Wrap(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                  child: Text(
+                    'Select a location',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10, right: 20, left: 20),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Search for area, street name...",
+                      isDense: true,
+                      // now you can customize it here or add padding widget
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                  child: Text(
+                    'Saved addresses',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                new ListTile(
+                    leading: new Icon(
+                      Icons.home,
+                      color: Colors.teal,
+                    ),
+                    title: new Text(
+                      'Home',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: new Text('9C Abad Bluechip'),
+                    trailing: Icon(
+                      Icons.check_circle_outline,
+                      color: Colors.red,
+                    ),
+                    onTap: () async {
+                      Navigator.of(context).pop();
+                      setState(() {
+                        //todo
+                      });
+                    }),
+                new ListTile(
+                  leading: new Icon(
+                    Icons.work,
+                    color: Colors.teal,
+                  ),
+                  title: new Text(
+                    'Office',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: new Text('7A Leela Infopark'),
+                  onTap: () async {
+                    Navigator.of(context).pop();
+                    setState(() {
+                      //todo
+                    });
+                  },
+                ),
+              ],
+            ),
+          );
+        });
   }
 }

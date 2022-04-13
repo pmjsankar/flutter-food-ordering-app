@@ -113,7 +113,7 @@ class _Checkout extends State<Checkout> {
                 child: Padding(
               padding: EdgeInsets.only(bottom: 5, left: 14, right: 10, top: 2),
               child: Text(
-                widget.obj.desc,
+                '5C, Sunrise Apartments, Kakkanad, Kochi',
                 textAlign: TextAlign.start,
                 style: TextStyle(
                   fontSize: 14.0,
