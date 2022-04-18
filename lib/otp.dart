@@ -143,6 +143,6 @@ class _Otp extends State<Otp> {
 
   saveLogin(String mobileNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(Constants.login, mobileNumber);
+    prefs.setString(Constants.LOGIN, mobileNumber);
   }
 }

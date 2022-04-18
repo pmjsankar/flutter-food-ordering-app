@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:livemenu/delivery_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import 'constants.dart';
 import 'gridview.dart';
+import 'location_model.dart';
 import 'main.dart';
 import 'networklayer.dart';
 
@@ -15,6 +20,18 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1631452180539-96aca7d48617?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 ];
+// List<LocationModel> locationList = List.empty(growable: true);
+List<LocationModel> locationList = [
+  LocationModel(
+      title: 'Home', address: '9C Abad Bluechip', type: 'Home', selected: true),
+  LocationModel(
+      title: 'Office',
+      address: '7A Leela Infopark',
+      type: 'Office',
+      selected: true),
+];
+
+LocationModel location = null;
 
 class Delivery extends StatefulWidget {
   Delivery({Key key}) : super(key: key);
@@ -26,6 +43,14 @@ class Delivery extends StatefulWidget {
 class _Delivery extends State<Delivery> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
+  int selectedIndex = 0;
+  List<String> _chipsList = ["Home", "Work", "Other"];
+
+  @override
+  void initState() {
+    savedLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +71,30 @@ class _Delivery extends State<Delivery> {
                   icon: Icon(
                     Icons.location_on_rounded,
                     color: Colors.red,
+                    size: 32,
                   ),
-                  label: Text(
-                    'Kakkanad, Kochi',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                  label: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        location != null && location.title != null
+                            ? location.title
+                            : locationList[0].title,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
+                      ),
+                      Text(
+                        location != null && location.address != null
+                            ? location.address
+                            : locationList[0].address,
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.normal,
+                            fontSize: 12),
+                      )
+                    ],
                   )),
             ),
           ),
@@ -267,52 +309,236 @@ class _Delivery extends State<Delivery> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                new ListTile(
-                    leading: new Icon(
-                      Icons.home,
-                      color: Colors.teal,
-                    ),
-                    title: new Text(
-                      'Home',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    subtitle: new Text('9C Abad Bluechip'),
-                    trailing: Icon(
-                      Icons.check_circle_outline,
-                      color: Colors.red,
-                    ),
-                    onTap: () async {
-                      Navigator.of(context).pop();
-                      setState(() {
-                        //todo
-                      });
+                ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: locationList.length,
+                    itemBuilder: (context, index) {
+                      return getListItem(locationList[index], index, context);
                     }),
-                new ListTile(
-                  leading: new Icon(
-                    Icons.work,
-                    color: Colors.teal,
-                  ),
-                  title: new Text(
-                    'Office',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: new Text('7A Leela Infopark'),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    setState(() {
-                      //todo
-                    });
-                  },
+                Divider(
+                  height: 1,
+                  indent: 6,
+                  endIndent: 6,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0, bottom: 10),
+                  child: TextButton.icon(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        _addAddress(context);
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.red,
+                        size: 24,
+                      ),
+                      label: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Add address',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
+                        ],
+                      )),
                 ),
               ],
             ),
           );
         });
+  }
+
+  ListTile getListItem(LocationModel obj, int index, BuildContext context) {
+    return ListTile(
+      leading: new Icon(
+        obj.type == 'Home' ? Icons.home : Icons.work,
+        color: Colors.teal,
+      ),
+      title: new Text(
+        obj.title,
+        style: TextStyle(
+            color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+      ),
+      subtitle: new Text(obj.address),
+      trailing: Visibility(
+          visible: obj.title == location?.title ? true : false,
+          child: Icon(
+            Icons.check_circle_outline,
+            color: Colors.red,
+          )),
+      onTap: () async {
+        Navigator.of(context).pop();
+        saveSelectedLocation(obj);
+      },
+    );
+  }
+
+  void _addAddress(context) {
+    TextEditingController titleController = new TextEditingController();
+    TextEditingController addressController = new TextEditingController();
+    TextEditingController landmarkController = new TextEditingController();
+
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Wrap(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0, top: 20.0),
+                  child: Text(
+                    'Add address',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                  child: TextField(
+                    controller: titleController,
+                    decoration: InputDecoration(
+                      hintText: "House No., Building Name (Required)",
+                      isDense: true,
+                      // now you can customize it here or add padding widget
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                  child: TextField(
+                    controller: addressController,
+                    decoration: InputDecoration(
+                      hintText: "Road name, Area (Required)",
+                      isDense: true,
+                      // now you can customize it here or add padding widget
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                  child: TextField(
+                    controller: landmarkController,
+                    decoration: InputDecoration(
+                      hintText: "Nearby Landmark (Optional)",
+                      isDense: true,
+                      // now you can customize it here or add padding widget
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
+                  child: Wrap(
+                    spacing: 6,
+                    direction: Axis.horizontal,
+                    children: locationChips(),
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        top: 20, right: 20, left: 20, bottom: 25),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size.fromHeight(
+                            40), // fromHeight use double.infinity as width and 40 is the height
+                      ),
+                      child: Text(
+                        'Save address',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () async {
+                        var title = titleController.text;
+                        var address = addressController.text;
+                        if (title.isNotEmpty && address.isNotEmpty) {
+                          Navigator.of(context).pop();
+                          LocationModel obj = LocationModel(
+                            title: title,
+                            address: address,
+                            type: _chipsList[selectedIndex],
+                            selected: false,
+                          );
+                          saveSelectedLocation(obj);
+                        } else {
+                          //todo
+                        }
+                      },
+                    )),
+              ],
+            ),
+          );
+        });
+  }
+
+  List<Widget> locationChips() {
+    List<Widget> chips = [];
+    for (int i = 0; i < _chipsList.length; i++) {
+      Widget item = Padding(
+        padding: const EdgeInsets.only(left: 10, right: 5),
+        child: ChoiceChip(
+          label: Text(_chipsList[i]),
+          labelStyle: TextStyle(color: Colors.white),
+          backgroundColor: Colors.black26,
+          selectedColor: Colors.cyan,
+          selected: selectedIndex == i,
+          onSelected: (bool value) {
+            setState(() {
+              selectedIndex = i;
+            });
+          },
+        ),
+      );
+      chips.add(item);
+    }
+    return chips;
+  }
+
+  savedLocation() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String locationJson = prefs.getString(Constants.LOCATION);
+
+    setState(() {
+      location = jsonDecode(locationJson);
+    });
+  }
+
+  saveSelectedLocation(LocationModel selectedLocation) async {
+    setState(() {
+      location = selectedLocation;
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(Constants.LOCATION, jsonEncode(selectedLocation));
   }
 }

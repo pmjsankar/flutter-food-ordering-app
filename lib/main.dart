@@ -60,7 +60,7 @@ class _MyApp extends State<MyApp> {
   getLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      mobileNumber = prefs.getString(Constants.login);
+      mobileNumber = prefs.getString(Constants.LOGIN);
     });
   }
 }

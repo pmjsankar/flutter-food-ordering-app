@@ -1,3 +1,4 @@
 class Constants {
-  static const login = 'LOGIN';
+  static const LOGIN = 'login';
+  static const LOCATION = 'location';
 }

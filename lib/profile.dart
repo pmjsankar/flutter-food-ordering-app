@@ -333,13 +333,13 @@ class _Profile extends State<Profile> {
   getLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      mobileNumber = prefs.getString(Constants.login) ?? '';
+      mobileNumber = prefs.getString(Constants.LOGIN) ?? '';
     });
   }
 
   logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove(Constants.login);
+    prefs.remove(Constants.LOGIN);
     setState(() {
       mobileNumber = '';
     });

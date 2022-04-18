@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
-import 'package:livemenu/delivery_model.dart';
-import 'package:livemenu/dining_model.dart';
-import 'package:share_plus/share_plus.dart';
+import 'package:http/http.dart' as httpimport
+
+'
+package:share_plus/share_plus.dart
+';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'networklayer.dart';
@@ -84,18 +85,6 @@ class _Dining extends State<Dining> {
         ),
       ],
     ));
-  }
-
-  DeliveryModel getDeliveryObj(DiningModel data) {
-    return DeliveryModel(
-      title: data.title,
-      price: '',
-      rating: data.rating,
-      offer: data.offer,
-      address: data.address,
-      desc: data.desc,
-      imageUrl: data.imageUrl,
-    );
   }
 
   Container getListItem(DiningModel obj, int index, BuildContext context) {
