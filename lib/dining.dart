@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as httpimport
-
-'
-package:share_plus/share_plus.dart
-';
+import 'package:http/http.dart' as http;
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'dining_model.dart';
 import 'networklayer.dart';
 
 class Dining extends StatefulWidget {
@@ -76,7 +74,7 @@ class _Dining extends State<Dining> {
                                 return getListItem(
                                     snapshot.data[index], index, context);
                               })
-                  ],
+                        ],
                       ),
                     )
                   : new Center(child: new CircularProgressIndicator());
