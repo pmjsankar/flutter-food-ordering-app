@@ -18,7 +18,7 @@ class _RestaurantGridView extends State<RestaurantGridView> {
       padding: EdgeInsets.all(0),
       primary: true,
       crossAxisCount: 2,
-      childAspectRatio: 0.86,
+      childAspectRatio: 0.78,
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       children: List.generate(widget.restaurantList.length, (index) {

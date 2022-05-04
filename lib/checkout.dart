@@ -198,7 +198,7 @@ class _Checkout extends State<Checkout> {
           ],
         ),
         Container(
-          height: 300,
+          height: 200,
           child: ListView.builder(
               physics: ScrollPhysics(),
               shrinkWrap: true,

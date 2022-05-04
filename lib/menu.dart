@@ -144,7 +144,7 @@ class _Menu extends State<Menu> {
             Flexible(
               child: Padding(
                   padding:
-                      EdgeInsets.only(bottom: 6, left: 12, right: 12, top: 0),
+                      EdgeInsets.only(bottom: 6, left: 6, right: 12, top: 0),
                   child: Card(
                     elevation: 3,
                     color: Colors.green,
