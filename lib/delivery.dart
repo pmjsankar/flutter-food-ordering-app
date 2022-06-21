@@ -281,34 +281,6 @@ class _Delivery extends State<Delivery> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10, right: 20, left: 20),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      hintText: "Search for area, street name...",
-                      isDense: true,
-                      // now you can customize it here or add padding widget
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                      prefixIcon: Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 20.0),
-                  child: Text(
-                    'Saved addresses',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
                 ListView.builder(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -383,123 +355,128 @@ class _Delivery extends State<Delivery> {
     TextEditingController landmarkController = new TextEditingController();
 
     showModalBottomSheet(
-        context: context,
+        isScrollControlled: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        builder: (BuildContext bc) {
-          return SafeArea(
-            child: Wrap(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 20.0, top: 20.0),
-                  child: Text(
-                    'Add address',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, right: 20, left: 20),
-                  child: TextField(
-                    controller: titleController,
-                    decoration: InputDecoration(
-                      hintText: "House No., Building Name (Required)",
-                      isDense: true,
-                      // now you can customize it here or add padding widget
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5.0),
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+              child: Container(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                        child: Text(
+                          'Add address',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, right: 20, left: 20),
-                  child: TextField(
-                    controller: addressController,
-                    decoration: InputDecoration(
-                      hintText: "Road name, Area (Required)",
-                      isDense: true,
-                      // now you can customize it here or add padding widget
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5.0),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                        child: TextField(
+                          controller: titleController,
+                          decoration: InputDecoration(
+                            hintText: "House No., Building Name (Required)",
+                            isDense: true,
+                            // now you can customize it here or add padding widget
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, right: 20, left: 20),
-                  child: TextField(
-                    controller: landmarkController,
-                    decoration: InputDecoration(
-                      hintText: "Nearby Landmark (Optional)",
-                      isDense: true,
-                      // now you can customize it here or add padding widget
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5.0),
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                        child: TextField(
+                          controller: addressController,
+                          decoration: InputDecoration(
+                            hintText: "Road name, Area (Required)",
+                            isDense: true,
+                            // now you can customize it here or add padding widget
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 10),
-                  child: Wrap(
-                    spacing: 6,
-                    direction: Axis.horizontal,
-                    children: locationChips(),
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(
-                        top: 20, right: 20, left: 20, bottom: 25),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size.fromHeight(
-                            40), // fromHeight use double.infinity as width and 40 is the height
+                      Padding(
+                        padding: EdgeInsets.only(top: 20, right: 20, left: 20),
+                        child: TextField(
+                          controller: landmarkController,
+                          decoration: InputDecoration(
+                            hintText: "Nearby Landmark (Optional)",
+                            isDense: true,
+                            // now you can customize it here or add padding widget
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(5.0),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                      child: Text(
-                        'Save address',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20, right: 20, left: 20, bottom: 10),
+                        child: Wrap(
+                          spacing: 6,
+                          direction: Axis.horizontal,
+                          children: locationChips(),
+                        ),
                       ),
-                      onPressed: () async {
-                        var title = titleController.text;
-                        var address = addressController.text;
-                        if (title.isNotEmpty && address.isNotEmpty) {
-                          Navigator.of(context).pop();
-                          LocationModel obj = LocationModel(
-                            title: title,
-                            address: address,
-                            type: _chipsList[selectedIndex],
-                            selected: false,
-                          );
-                          saveSelectedLocation(obj);
-                        } else {
-                          //todo
-                        }
-                      },
-                    )),
-              ],
-            ),
-          );
-        });
+                      Padding(
+                          padding: EdgeInsets.only(
+                              top: 20, right: 20, left: 20, bottom: 25),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size.fromHeight(
+                                  40), // fromHeight use double.infinity as width and 40 is the height
+                            ),
+                            child: Text(
+                              'Save address',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () async {
+                              var title = titleController.text;
+                              var address = addressController.text;
+                              if (title.isNotEmpty && address.isNotEmpty) {
+                                Navigator.of(context).pop();
+                                LocationModel obj = LocationModel(
+                                  title: title,
+                                  address: address,
+                                  type: _chipsList[selectedIndex],
+                                  selected: false,
+                                );
+                                saveSelectedLocation(obj);
+                              } else {
+                                //todo
+                              }
+                            },
+                          )),
+                    ],
+                  )));
+        },
+        context: context);
   }
 
   List<Widget> locationChips() {
