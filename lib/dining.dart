@@ -16,6 +16,8 @@ class Dining extends StatefulWidget {
 
 class _Dining extends State<Dining> {
   final List<int> _selectedIndices = <int>[-1];
+  List<DiningModel> diningList = List.empty(growable: true);
+  List<DiningModel> diningListFiltered = List.empty(growable: true);
 
   _onSelected(int index) {
     setState(() {
@@ -25,6 +27,19 @@ class _Dining extends State<Dining> {
         _selectedIndices.add(index);
       }
     });
+  }
+
+  fetchDiningList() async {
+    List dineList = await getDining(new http.Client());
+    setState(() {
+      diningList = dineList;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    fetchDiningList();
   }
 
   @override
@@ -39,6 +54,9 @@ class _Dining extends State<Dining> {
           padding: const EdgeInsets.only(
               left: 10.0, top: 60.0, right: 10.0, bottom: 0.0),
           child: TextField(
+            onChanged: (text) {
+              filterList(text.toLowerCase());
+            },
             decoration: InputDecoration(
               labelText: "Search restaurants, cuisine..",
               isDense: true,
@@ -54,33 +72,32 @@ class _Dining extends State<Dining> {
           ),
         ),
         Expanded(
-          child: new FutureBuilder<List<DiningModel>>(
-            future: getDining(new http.Client()),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) print(snapshot.error);
-
-              return snapshot.hasData
-                  ? new SingleChildScrollView(
-                padding: EdgeInsets.all(0),
-                      physics: ScrollPhysics(),
-                      child: Column(
-                        children: <Widget>[
-                          ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              padding: EdgeInsets.only(top: 20),
-                              itemCount: snapshot.data.length,
-                              itemBuilder: (context, index) {
-                                return getListItem(
-                                    snapshot.data[index], index, context);
-                              })
-                        ],
-                      ),
-                    )
-                  : new Center(child: new CircularProgressIndicator());
-            },
+            child: SingleChildScrollView(
+          padding: EdgeInsets.all(0),
+          physics: ScrollPhysics(),
+          child: Column(
+            children: <Widget>[
+              diningListFiltered.isNotEmpty
+                  ? ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.only(top: 20),
+                      itemCount: diningListFiltered.length,
+                      itemBuilder: (context, index) {
+                        return getListItem(
+                            diningListFiltered[index], index, context);
+                      })
+                  : ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.only(top: 20),
+                      itemCount: diningList.length,
+                      itemBuilder: (context, index) {
+                        return getListItem(diningList[index], index, context);
+                      })
+            ],
           ),
-        ),
+        )),
       ],
     ));
   }
@@ -290,6 +307,22 @@ class _Dining extends State<Dining> {
         ],
       ),
     ));
+  }
+
+  void filterList(String searchText) {
+    diningListFiltered.clear();
+    if (searchText != null && searchText.isNotEmpty) {
+      List<DiningModel> diningListLatest = List.empty(growable: true);
+      for (int i = 0; i < diningList.length; i++) {
+        if (diningList[i].title.toLowerCase().contains(searchText) ||
+            diningList[i].desc.toLowerCase().contains(searchText)) {
+          diningListLatest.add(diningList[i]);
+        }
+      }
+      setState(() {
+        diningListFiltered = diningListLatest;
+      });
+    }
   }
 
   void _launchURL(String _url) async {
