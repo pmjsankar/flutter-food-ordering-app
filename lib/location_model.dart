@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class LocationModel {
   String title;
   String address;
@@ -26,4 +28,22 @@ class LocationModel {
         'type': type,
         'selected': selected,
       };
+
+  static Map<String, dynamic> toMap(LocationModel location) => {
+        'title': location.title,
+        'address': location.address,
+        'type': location.type,
+        'selected': location.selected,
+      };
+
+  static String encode(List<LocationModel> locations) => json.encode(
+        locations
+            .map<Map<String, dynamic>>((loc) => LocationModel.toMap(loc))
+            .toList(),
+      );
+
+  static List<LocationModel> decode(String locations) =>
+      (json.decode(locations) as List<dynamic>)
+          .map<LocationModel>((item) => LocationModel.fromJson(item))
+          .toList();
 }

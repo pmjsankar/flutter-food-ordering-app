@@ -20,16 +20,7 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1631452180539-96aca7d48617?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
   'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 ];
-// List<LocationModel> locationList = List.empty(growable: true);
-List<LocationModel> locationList = [
-  LocationModel(
-      title: 'Home', address: '9C Abad Bluechip', type: 'Home', selected: true),
-  LocationModel(
-      title: 'Office',
-      address: '7A Leela Infopark',
-      type: 'Office',
-      selected: true),
-];
+List<LocationModel> locationList = List.empty(growable: true);
 
 LocationModel location = null;
 
@@ -79,7 +70,9 @@ class _Delivery extends State<Delivery> {
                       Text(
                         location != null && location.title != null
                             ? location.title
-                            : locationList[0].title,
+                            : locationList.isNotEmpty
+                                ? locationList[0].title
+                                : "",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -88,7 +81,9 @@ class _Delivery extends State<Delivery> {
                       Text(
                         location != null && location.address != null
                             ? location.address
-                            : locationList[0].address,
+                            : locationList.isNotEmpty
+                                ? locationList[0].address
+                                : "",
                         style: TextStyle(
                             color: Colors.blueGrey,
                             fontWeight: FontWeight.normal,
@@ -505,9 +500,19 @@ class _Delivery extends State<Delivery> {
   savedLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String locationJson = prefs.getString(Constants.LOCATION);
+    Map decode_options = jsonDecode(locationJson);
+    LocationModel locationOj = LocationModel.fromJson(decode_options);
+
+    List<LocationModel> locations = List.empty(growable: true);
+    final String locationListString =
+        await prefs.getString(Constants.LOCATION_LIST);
+    if (locationListString != null) {
+      locations = LocationModel.decode(locationListString);
+    }
 
     setState(() {
-      location = jsonDecode(locationJson);
+      location = locationOj;
+      locationList = locations;
     });
   }
 
@@ -517,5 +522,9 @@ class _Delivery extends State<Delivery> {
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.LOCATION, jsonEncode(selectedLocation));
+    locationList.add(selectedLocation);
+
+    final String encodedData = LocationModel.encode(locationList);
+    await prefs.setString(Constants.LOCATION_LIST, encodedData);
   }
 }
