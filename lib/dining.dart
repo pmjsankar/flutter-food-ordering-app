@@ -74,12 +74,12 @@ class _Dining extends State<Dining> {
         Expanded(
             child: SingleChildScrollView(
           padding: EdgeInsets.all(0),
-          physics: ScrollPhysics(),
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[
               diningListFiltered.isNotEmpty
                   ? ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
                       padding: EdgeInsets.only(top: 20),
                       itemCount: diningListFiltered.length,
@@ -88,7 +88,7 @@ class _Dining extends State<Dining> {
                             diningListFiltered[index], index, context);
                       })
                   : ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: BouncingScrollPhysics(),
                       shrinkWrap: true,
                       padding: EdgeInsets.only(top: 20),
                       itemCount: diningList.length,
