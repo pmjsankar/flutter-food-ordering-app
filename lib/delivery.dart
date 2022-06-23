@@ -42,11 +42,21 @@ class _Delivery extends State<Delivery> {
   List<String> _chipsList = ["Home", "Work", "Other"];
   bool _validTitle = true;
   bool _validAddress = true;
+  List<DeliveryModel> restaurantList = List.empty(growable: true);
+  List<DeliveryModel> restaurantListFiltered = List.empty(growable: true);
 
   @override
   void initState() {
     savedLocation();
+    fetchRestaurantList();
     super.initState();
+  }
+
+  fetchRestaurantList() async {
+    List deliveryList = await fetchDeliveryDetails(new http.Client());
+    setState(() {
+      restaurantList = deliveryList;
+    });
   }
 
   @override
@@ -114,6 +124,9 @@ class _Delivery extends State<Delivery> {
                   padding: const EdgeInsets.only(
                       left: 10.0, top: 8.0, right: 10.0, bottom: 10.0),
                   child: TextField(
+                    onChanged: (text) {
+                      filterRestaurantList(text.toLowerCase());
+                    },
                     decoration: InputDecoration(
                       labelText: "Search",
                       hintText: "Search",
@@ -246,17 +259,10 @@ class _Delivery extends State<Delivery> {
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 6.0, top: 0.0, right: 6.0, bottom: 10.0),
-                  child: new FutureBuilder<List<DeliveryModel>>(
-                    future: fetchDeliveryDetails(new http.Client()),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasError) print(snapshot.error);
-
-                      return snapshot.hasData
-                          ? new RestaurantGridView(
-                              restaurantList: snapshot.data)
-                          : new Center(child: new CircularProgressIndicator());
-                    },
-                  ),
+                  child: RestaurantGridView(
+                      restaurantList: restaurantListFiltered.isNotEmpty
+                          ? restaurantListFiltered
+                          : restaurantList),
                 )
               ],
             ),
@@ -573,5 +579,21 @@ class _Delivery extends State<Delivery> {
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.SELECTED_LOCATION, jsonEncode(selectedLocation));
+  }
+
+  filterRestaurantList(String searchText) {
+    restaurantListFiltered.clear();
+    if (searchText != null && searchText.isNotEmpty) {
+      List<DeliveryModel> restaurantListLatest = List.empty(growable: true);
+      for (int i = 0; i < restaurantList.length; i++) {
+        if (restaurantList[i].title.toLowerCase().contains(searchText) ||
+            restaurantList[i].desc.toLowerCase().contains(searchText)) {
+          restaurantListLatest.add(restaurantList[i]);
+        }
+      }
+      setState(() {
+        restaurantListFiltered = restaurantListLatest;
+      });
+    }
   }
 }
