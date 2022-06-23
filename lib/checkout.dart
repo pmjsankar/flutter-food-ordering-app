@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:livemenu/delivery_model.dart';
 import 'package:livemenu/menu_model.dart';
+import 'package:livemenu/offers.dart';
 
 class Checkout extends StatefulWidget {
   final DeliveryModel obj;
-  int totalPrice;
-  int deliveryFee = 24;
-  int tax = 8;
+  final int totalPrice;
+  final int deliveryFee = 24;
+  final int tax = 8;
   final List<MenuModel> selectedItems;
 
   Checkout({Key key, this.obj, this.selectedItems, this.totalPrice})
@@ -70,7 +71,8 @@ class _Checkout extends State<Checkout> {
                     color: Colors.orange,
                     size: 24,
                   ),
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                      context, MaterialPageRoute(builder: (_) => Offers())),
                 )),
           ],
         ),

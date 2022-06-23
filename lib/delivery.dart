@@ -11,6 +11,7 @@ import 'constants.dart';
 import 'gridview.dart';
 import 'location_model.dart';
 import 'main.dart';
+import 'menu.dart';
 import 'networklayer.dart';
 
 final List<String> imgList = [
@@ -127,146 +128,183 @@ class _Delivery extends State<Delivery> {
                   child: TextField(
                     onChanged: (text) {
                       filterRestaurantList(text.toLowerCase());
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Search",
-                          hintText: "Search",
-                          isDense: true,
-                          // now you can customize it here or add padding widget
-                          contentPadding:
+                    },
+                    decoration: InputDecoration(
+                      labelText: "Search",
+                      hintText: "Search",
+                      isDense: true,
+                      // now you can customize it here or add padding widget
+                      contentPadding:
                           EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                          ),
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
                         ),
                       ),
                     ),
-                    CarouselSlider(
-                      items: imageSliders,
-                      carouselController: _controller,
-                      options: CarouselOptions(
-                          autoPlay: false,
-                          enlargeCenterPage: false,
-                          aspectRatio: 2.0,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              _current = index;
-                            });
-                          }),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: imgList.asMap().entries.map((entry) {
-                        return GestureDetector(
-                          onTap: () => _controller.animateToPage(entry.key),
-                          child: Container(
-                            width: 6.0,
-                            height: 6.0,
-                            margin: EdgeInsets.symmetric(
-                                vertical: 8.0, horizontal: 4.0),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color:
-                                (Theme.of(context).brightness == Brightness.dark
-                                    ? Colors.white
-                                    : Colors.black)
-                                    .withOpacity(
-                                    _current == entry.key ? 0.9 : 0.4)),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20.0, top: 15.0, right: 10.0, bottom: 5.0),
-                      child: Text(
-                        'Popular',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                              margin: EdgeInsets.only(top: 20, left: 17, right: 6),
-                              width: 75.0,
-                              height: 75.0,
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, top: 20.0, right: 10.0, bottom: 10.0),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.scaleDown,
-                                      image: new AssetImage(
-                                          "assets/images/burger.png")))),
-                          Container(
-                              margin: EdgeInsets.only(top: 20, right: 6),
-                              width: 75.0,
-                              height: 75.0,
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, top: 20.0, right: 10.0, bottom: 10.0),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.scaleDown,
-                                      image: new AssetImage(
-                                          "assets/images/masala.png")))),
-                          Container(
-                              margin: EdgeInsets.only(top: 20, right: 6),
-                              width: 75.0,
-                              height: 75.0,
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, top: 20.0, right: 10.0, bottom: 10.0),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.scaleDown,
-                                      image: new AssetImage(
-                                          "assets/images/pizza.png")))),
-                          Container(
-                              margin: EdgeInsets.only(top: 20, right: 17),
-                              width: 75.0,
-                              height: 75.0,
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, top: 20.0, right: 10.0, bottom: 10.0),
-                              decoration: new BoxDecoration(
-                                  color: Colors.black12,
-                                  shape: BoxShape.circle,
-                                  image: new DecorationImage(
-                                      fit: BoxFit.scaleDown,
-                                      image: new AssetImage(
-                                          "assets/images/biriyani.png"))))
-                        ]),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 20.0, top: 20.0, right: 10.0, bottom: 10.0),
-                      child: Text(
-                        'Top offers!',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 6.0, top: 0.0, right: 6.0, bottom: 10.0),
-                      child: RestaurantGridView(
-                          restaurantList: restaurantListFiltered.isNotEmpty
-                              ? restaurantListFiltered
-                              : restaurantList),
-                    )
-                  ],
+                  ),
                 ),
+                CarouselSlider(
+                  items: imageSliders,
+                  carouselController: _controller,
+                  options: CarouselOptions(
+                      autoPlay: false,
+                      enlargeCenterPage: false,
+                      aspectRatio: 2.0,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      }),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: imgList.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () => _controller.animateToPage(entry.key),
+                      child: Container(
+                        width: 6.0,
+                        height: 6.0,
+                        margin: EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 4.0),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                (Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.white
+                                        : Colors.black)
+                                    .withOpacity(
+                                        _current == entry.key ? 0.9 : 0.4)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, top: 15.0, right: 10.0, bottom: 5.0),
+                  child: Text(
+                    'Popular',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      InkWell(
+                        child: Container(
+                            margin:
+                                EdgeInsets.only(top: 20, left: 17, right: 6),
+                            width: 75.0,
+                            height: 75.0,
+                            padding: const EdgeInsets.only(
+                                left: 10.0,
+                                top: 20.0,
+                                right: 10.0,
+                                bottom: 10.0),
+                            decoration: new BoxDecoration(
+                                color: Colors.black12,
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.scaleDown,
+                                    image: new AssetImage(
+                                        "assets/images/burger.png")))),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => Menu(obj: restaurantList[0]))),
+                      ),
+                      InkWell(
+                        child: Container(
+                            margin: EdgeInsets.only(top: 20, right: 6),
+                            width: 75.0,
+                            height: 75.0,
+                            padding: const EdgeInsets.only(
+                                left: 10.0,
+                                top: 20.0,
+                                right: 10.0,
+                                bottom: 10.0),
+                            decoration: new BoxDecoration(
+                                color: Colors.black12,
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.scaleDown,
+                                    image: new AssetImage(
+                                        "assets/images/masala.png")))),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => Menu(obj: restaurantList[0]))),
+                      ),
+                      InkWell(
+                        child: Container(
+                            margin: EdgeInsets.only(top: 20, right: 6),
+                            width: 75.0,
+                            height: 75.0,
+                            padding: const EdgeInsets.only(
+                                left: 10.0,
+                                top: 20.0,
+                                right: 10.0,
+                                bottom: 10.0),
+                            decoration: new BoxDecoration(
+                                color: Colors.black12,
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.scaleDown,
+                                    image: new AssetImage(
+                                        "assets/images/pizza.png")))),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => Menu(obj: restaurantList[0]))),
+                      ),
+                      InkWell(
+                        child: Container(
+                            margin: EdgeInsets.only(top: 20, right: 17),
+                            width: 75.0,
+                            height: 75.0,
+                            padding: const EdgeInsets.only(
+                                left: 10.0,
+                                top: 20.0,
+                                right: 10.0,
+                                bottom: 10.0),
+                            decoration: new BoxDecoration(
+                                color: Colors.black12,
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.scaleDown,
+                                    image: new AssetImage(
+                                        "assets/images/biriyani.png")))),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => Menu(obj: restaurantList[0]))),
+                      ),
+                    ]),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, top: 20.0, right: 10.0, bottom: 10.0),
+                  child: Text(
+                    'Top offers!',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 6.0, top: 0.0, right: 6.0, bottom: 10.0),
+                  child: RestaurantGridView(
+                      restaurantList: restaurantListFiltered.isNotEmpty
+                          ? restaurantListFiltered
+                          : restaurantList),
+                )
+              ],
+            ),
           )),
         ],
       ),
@@ -409,13 +447,13 @@ class _Delivery extends State<Delivery> {
                         ),
                         Padding(
                           padding:
-                          EdgeInsets.only(top: 20, right: 20, left: 20),
+                              EdgeInsets.only(top: 20, right: 20, left: 20),
                           child: TextField(
                             controller: titleController,
                             decoration: InputDecoration(
                               hintText: "House No., Building Name (Required)",
                               errorText:
-                              _validTitle ? null : 'This field is required',
+                                  _validTitle ? null : 'This field is required',
                               isDense: true,
                               // now you can customize it here or add padding widget
                               contentPadding: EdgeInsets.symmetric(
@@ -430,7 +468,7 @@ class _Delivery extends State<Delivery> {
                         ),
                         Padding(
                           padding:
-                          EdgeInsets.only(top: 20, right: 20, left: 20),
+                              EdgeInsets.only(top: 20, right: 20, left: 20),
                           child: TextField(
                             controller: addressController,
                             decoration: InputDecoration(
@@ -452,7 +490,7 @@ class _Delivery extends State<Delivery> {
                         ),
                         Padding(
                           padding:
-                          EdgeInsets.only(top: 20, right: 20, left: 20),
+                              EdgeInsets.only(top: 20, right: 20, left: 20),
                           child: TextField(
                             decoration: InputDecoration(
                               hintText: "Nearby Landmark (Optional)",

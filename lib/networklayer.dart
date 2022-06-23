@@ -7,10 +7,11 @@ import 'package:livemenu/delivery_model.dart';
 
 import 'dining_model.dart';
 import 'menu_model.dart';
+import 'offers_model.dart';
 
 Future<List<DeliveryModel>> fetchDeliveryDetails(http.Client client) async {
-  final response =
-      await client.get(Uri.parse('https://demo1784049.mockable.io/livemenu'));
+  final response = await client
+      .get(Uri.parse('https://pmjsankar.github.io/api/livemenu.json'));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseData, response.body);
 }
@@ -26,8 +27,8 @@ List<DeliveryModel> parseData(String responseBody) {
 }
 
 Future<List<DiningModel>> getDining(http.Client client) async {
-  final response =
-      await client.get(Uri.parse('https://demo1784049.mockable.io/dining'));
+  final response = await client
+      .get(Uri.parse('https://pmjsankar.github.io/api/dining.json'));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseDiningData, response.body);
 }
@@ -44,7 +45,7 @@ List<DiningModel> parseDiningData(String responseBody) {
 
 Future<List<MenuModel>> getMenu(http.Client client) async {
   final response =
-      await client.get(Uri.parse('https://demo1784049.mockable.io/menu'));
+      await client.get(Uri.parse('https://pmjsankar.github.io/api/menu.json'));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseDiningMenu, response.body);
 }
@@ -55,5 +56,21 @@ List<MenuModel> parseDiningMenu(String responseBody) {
 
   List<MenuModel> list =
       parsed.map<MenuModel>((json) => new MenuModel.fromJson(json)).toList();
+  return list;
+}
+
+Future<List<OfferModel>> getOffers(http.Client client) async {
+  final response = await client
+      .get(Uri.parse('https://pmjsankar.github.io/api/offers.json'));
+  // Use the compute function to run parsePhotos in a separate isolate
+  return compute(parseOffers, response.body);
+}
+
+// A function that will convert a response body into a List
+List<OfferModel> parseOffers(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+
+  List<OfferModel> list =
+      parsed.map<OfferModel>((json) => new OfferModel.fromJson(json)).toList();
   return list;
 }
