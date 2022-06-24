@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:livemenu/networklayer.dart';
 import 'package:livemenu/offers_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Offers extends StatefulWidget {
   Offers({Key key}) : super(key: key);
@@ -207,7 +206,7 @@ class _Offers extends State<Offers> {
                                     )))
                             : ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(
-                          content: Text(obj.desc),
+                                content: Text(obj.desc),
                               ));
                       },
                     ),
@@ -253,7 +252,7 @@ class _Offers extends State<Offers> {
                         color: Colors.blueGrey,
                         fontWeight: FontWeight.normal,
                       )),
-                  onPressed: () => _launchURL('https://www.google.com'),
+                  onPressed: () => launchURL(context, 'https://www.google.com'),
                 ),
               )
             ],
@@ -261,9 +260,5 @@ class _Offers extends State<Offers> {
         ),
       ),
     );
-  }
-
-  void _launchURL(String _url) async {
-    if (!await launch(_url)) throw 'Could not launch $_url';
   }
 }

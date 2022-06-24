@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'dining_model.dart';
 import 'networklayer.dart';
@@ -261,7 +260,7 @@ class _Dining extends State<Dining> {
                           child: InkWell(
                             splashColor: Colors.grey, // Splash color
                             onTap: () {
-                              _launchURL(obj.map);
+                              launchURL(context, obj.map);
                             },
                             child: SizedBox(
                                 width: 28,
@@ -323,9 +322,5 @@ class _Dining extends State<Dining> {
         diningListFiltered = diningListLatest;
       });
     }
-  }
-
-  void _launchURL(String _url) async {
-    if (!await launch(_url)) throw 'Could not launch $_url';
   }
 }

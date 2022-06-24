@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:http/http.dart' as http;
 import 'package:livemenu/delivery_model.dart';
 
@@ -73,4 +75,36 @@ List<OfferModel> parseOffers(String responseBody) {
   List<OfferModel> list =
       parsed.map<OfferModel>((json) => new OfferModel.fromJson(json)).toList();
   return list;
+}
+
+Future<void> launchURL(BuildContext context, String _url) async {
+  final theme = Theme.of(context);
+  try {
+    await launch(
+      _url,
+      customTabsOption: CustomTabsOption(
+        toolbarColor: theme.primaryColor,
+        enableDefaultShare: true,
+        enableUrlBarHiding: true,
+        showPageTitle: true,
+        animation: CustomTabsSystemAnimation.slideIn(),
+        extraCustomTabs: const <String>[
+          // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
+          'org.mozilla.firefox',
+          // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
+          'com.microsoft.emmx',
+        ],
+      ),
+      safariVCOption: SafariViewControllerOption(
+        preferredBarTintColor: theme.primaryColor,
+        preferredControlTintColor: Colors.white,
+        barCollapsingEnabled: true,
+        entersReaderIfAvailable: false,
+        dismissButtonStyle: SafariViewControllerDismissButtonStyle.close,
+      ),
+    );
+  } catch (e) {
+    // An exception is thrown if browser app is not installed on Android device.
+    debugPrint(e.toString());
+  }
 }
