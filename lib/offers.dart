@@ -26,7 +26,7 @@ class _Offers extends State<Offers> {
               children: <Widget>[
                 Padding(
                     padding:
-                        const EdgeInsets.only(left: 10.0, right: 10, top: 60.0),
+                        const EdgeInsets.only(left: 10.0, right: 0, top: 60.0),
                     child: InkWell(
                       child: Icon(
                         Icons.arrow_back,
@@ -39,7 +39,7 @@ class _Offers extends State<Offers> {
                     )),
                 Expanded(
                   child: new Padding(
-                    padding: const EdgeInsets.only(left: 3.0, top: 60.0),
+                    padding: const EdgeInsets.only(left: 10.0, top: 60.0),
                     child: Text(
                       'Offers',
                       style: TextStyle(
@@ -143,11 +143,7 @@ class _Offers extends State<Offers> {
         ),
         elevation: 2,
         child: InkWell(
-          onTap: () => !obj.available
-              ? ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("Offer expired"),
-                ))
-              : {},
+          onTap: () => {},
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -175,7 +171,7 @@ class _Offers extends State<Offers> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 18.0,
-                            color: Colors.green,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                           maxLines: 1,
@@ -207,7 +203,7 @@ class _Offers extends State<Offers> {
                                     )))
                             : ScaffoldMessenger.of(context)
                                 .showSnackBar(SnackBar(
-                                content: Text("Offer expired"),
+                          content: Text(obj.desc),
                               ));
                       },
                     ),
@@ -216,7 +212,7 @@ class _Offers extends State<Offers> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 10, right: 0, top: 5, bottom: 10),
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
                 child: Text(
                   obj.title,
                   textAlign: TextAlign.start,
@@ -230,7 +226,8 @@ class _Offers extends State<Offers> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 10, right: 0, top: 0, bottom: 0),
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
                 child: Text(
                   obj.desc,
                   textAlign: TextAlign.start,
@@ -250,12 +247,9 @@ class _Offers extends State<Offers> {
                       style: TextStyle(
                         fontSize: 14.0,
                         color: Colors.blueGrey,
-                        fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.normal,
                       )),
-                  onPressed: () {
-                    _launchURL('www.google.com');
-                  },
+                  onPressed: () => _launchURL('https://www.google.com'),
                 ),
               )
             ],

@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'constants.dart';
 import 'delivery.dart';
 import 'dining.dart';
-import 'offers.dart';
+import 'orders.dart';
 
 final List<String> imgList = [
   'https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
@@ -109,7 +109,7 @@ class _HomePageState extends State<HomePage> {
   final List _children = [
     Delivery(),
     Dining(),
-    Offers(),
+    Orders(),
     Profile(),
   ];
 
