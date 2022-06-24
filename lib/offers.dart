@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:livemenu/networklayer.dart';
 import 'package:livemenu/offers_model.dart';
@@ -57,6 +58,9 @@ class _Offers extends State<Offers> {
               child: TextField(
                 textCapitalization: TextCapitalization.characters,
                 keyboardType: TextInputType.name,
+                inputFormatters: [
+                  FilteringTextInputFormatter.deny(RegExp(r'\s')),
+                ],
                 onChanged: (text) {
                   setState(() {
                     _couponValid = text.trim().length >= 6;
