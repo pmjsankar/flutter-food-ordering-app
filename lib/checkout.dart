@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:livemenu/delivery_model.dart';
-import 'package:livemenu/menu_model.dart';
 import 'package:livemenu/offers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'checkout_model.dart';
 import 'constants.dart';
 import 'location_model.dart';
 
@@ -15,7 +15,7 @@ class Checkout extends StatefulWidget {
   final int totalPrice;
   final int deliveryFee = 24;
   final int tax = 8;
-  final List<MenuModel> selectedItems;
+  final List<CheckoutModel> selectedItems;
 
   Checkout({Key key, this.obj, this.selectedItems, this.totalPrice})
       : super(key: key);
@@ -384,7 +384,7 @@ class _Checkout extends State<Checkout> {
         ));
   }
 
-  Container getListItem(MenuModel obj, int index, BuildContext context) {
+  Container getListItem(CheckoutModel obj, int index, BuildContext context) {
     return Container(
       child: Column(
         children: [
@@ -425,7 +425,7 @@ class _Checkout extends State<Checkout> {
                 padding:
                 EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 20),
                 child: Text(
-                  '1',
+                  obj.quantity.toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: 14.0,
@@ -456,11 +456,11 @@ class _Checkout extends State<Checkout> {
                 padding:
                 EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 0),
                 child: Text(
-                  '₹' + obj.price.toString(),
+                  '₹' + (obj.price * obj.quantity).toString(),
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.black54,
+                    color: Colors.black87,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

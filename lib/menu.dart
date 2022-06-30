@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:livemenu/checkout.dart';
 import 'package:livemenu/delivery_model.dart';
 
+import 'checkout_model.dart';
 import 'menu_model.dart';
 import 'networklayer.dart';
 
@@ -17,12 +18,13 @@ class Menu extends StatefulWidget {
 }
 
 class _Menu extends State<Menu> {
-  final List<MenuModel> _selectedItems = <MenuModel>[];
+  final List<CheckoutModel> _selectedItems = <CheckoutModel>[];
   var _starred = false;
   var _switchValueVeg = false;
   var _switchValueNonVeg = false;
   var itemAddedToCart = false;
   var totalPrice = 0;
+  var itemCount = 0;
 
   _onSelected(int index) {
     setState(() {
@@ -39,8 +41,6 @@ class _Menu extends State<Menu> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
-
-    var itemCount = _selectedItems.length;
 
     return Scaffold(
         body: Column(
@@ -463,7 +463,35 @@ class _Menu extends State<Menu> {
                           setState(() {
                             totalPrice = totalPrice + menuObj.price;
                             itemAddedToCart = true;
-                            _selectedItems.add(menuObj);
+                            if (_selectedItems.isEmpty) {
+                              var slNew = CheckoutModel(
+                                  title: menuObj.title,
+                                  price: menuObj.price,
+                                  quantity: 1,
+                                  veg: menuObj.veg,
+                                  imageUrl: menuObj.imageUrl);
+                              _selectedItems.add(slNew);
+                            } else {
+                              var alreadyExist = false;
+                              for (int i = 0; i < _selectedItems.length; i++) {
+                                var sl = _selectedItems[i];
+                                if (sl.title == menuObj.title) {
+                                  sl.quantity = sl.quantity + 1;
+                                  alreadyExist = true;
+                                  break;
+                                }
+                              }
+                              if (!alreadyExist) {
+                                var slNew = CheckoutModel(
+                                    title: menuObj.title,
+                                    price: menuObj.price,
+                                    quantity: 1,
+                                    veg: menuObj.veg,
+                                    imageUrl: menuObj.imageUrl);
+                                _selectedItems.add(slNew);
+                              }
+                            }
+                            itemCount = _selectedItems.length;
                           });
                         },
                         style: OutlinedButton.styleFrom(
