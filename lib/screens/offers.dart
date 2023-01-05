@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:livemenu/networklayer.dart';
-import 'package:livemenu/offers_model.dart';
+import 'package:livemenu/model/offers_model.dart';
+import 'package:livemenu/util/networklayer.dart';
 
 class Offers extends StatefulWidget {
   Offers({Key key}) : super(key: key);

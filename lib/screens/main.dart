@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:livemenu/login.dart';
-import 'package:livemenu/profile.dart';
+import 'package:livemenu/screens/login.dart';
+import 'package:livemenu/screens/profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'constants.dart';
+import '../util/constants.dart';
 import 'delivery.dart';
 import 'dining.dart';
 import 'orders.dart';

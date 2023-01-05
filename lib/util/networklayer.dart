@@ -5,15 +5,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 import 'package:http/http.dart' as http;
-import 'package:livemenu/delivery_model.dart';
+import 'package:livemenu/model/delivery_model.dart';
+import 'package:livemenu/util/constants.dart';
 
-import 'dining_model.dart';
-import 'menu_model.dart';
-import 'offers_model.dart';
+import '../model/dining_model.dart';
+import '../model/menu_model.dart';
+import '../model/offers_model.dart';
 
 Future<List<DeliveryModel>> fetchDeliveryDetails(http.Client client) async {
-  final response = await client
-      .get(Uri.parse('https://pmjsankar.github.io/api/livemenu.json'));
+  final response = await client.get(Uri.parse(ApiEndPoint.LIVE_MENU));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseData, response.body);
 }
@@ -29,8 +29,7 @@ List<DeliveryModel> parseData(String responseBody) {
 }
 
 Future<List<DiningModel>> getDining(http.Client client) async {
-  final response = await client
-      .get(Uri.parse('https://pmjsankar.github.io/api/dining.json'));
+  final response = await client.get(Uri.parse(ApiEndPoint.DINING));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseDiningData, response.body);
 }
@@ -46,8 +45,7 @@ List<DiningModel> parseDiningData(String responseBody) {
 }
 
 Future<List<MenuModel>> getMenu(http.Client client) async {
-  final response =
-      await client.get(Uri.parse('https://pmjsankar.github.io/api/menu.json'));
+  final response = await client.get(Uri.parse(ApiEndPoint.MENU));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseDiningMenu, response.body);
 }
@@ -62,8 +60,7 @@ List<MenuModel> parseDiningMenu(String responseBody) {
 }
 
 Future<List<OfferModel>> getOffers(http.Client client) async {
-  final response = await client
-      .get(Uri.parse('https://pmjsankar.github.io/api/offers.json'));
+  final response = await client.get(Uri.parse(ApiEndPoint.OFFERS));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseOffers, response.body);
 }

@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:share_plus/share_plus.dart';
 
-import 'dining_model.dart';
-import 'networklayer.dart';
+import '../model/dining_model.dart';
+import '../util/networklayer.dart';
 
 class Dining extends StatefulWidget {
   Dining({Key key}) : super(key: key);

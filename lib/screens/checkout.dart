@@ -2,13 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:livemenu/delivery_model.dart';
-import 'package:livemenu/offers.dart';
+import 'package:livemenu/model/delivery_model.dart';
+import 'package:livemenu/screens/offers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'checkout_model.dart';
-import 'constants.dart';
-import 'location_model.dart';
+import '../model/checkout_model.dart';
+import '../model/location_model.dart';
+import '../util/constants.dart';
 
 class Checkout extends StatefulWidget {
   final DeliveryModel obj;

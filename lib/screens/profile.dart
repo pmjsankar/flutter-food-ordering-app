@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'constants.dart';
+import '../util/constants.dart';
 import 'login.dart';
 
 class Profile extends StatefulWidget {

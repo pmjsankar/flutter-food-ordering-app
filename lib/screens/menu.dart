@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:livemenu/checkout.dart';
-import 'package:livemenu/delivery_model.dart';
+import 'package:livemenu/model/delivery_model.dart';
+import 'package:livemenu/screens/checkout.dart';
 
-import 'checkout_model.dart';
-import 'menu_model.dart';
-import 'networklayer.dart';
+import '../model/checkout_model.dart';
+import '../model/menu_model.dart';
+import '../util/networklayer.dart';
 
 class Menu extends StatefulWidget {
   final DeliveryModel obj;

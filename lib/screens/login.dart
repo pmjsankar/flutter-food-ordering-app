@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:livemenu/otp.dart';
+import 'package:livemenu/screens/otp.dart';
 
 //
 class Login extends StatefulWidget {
