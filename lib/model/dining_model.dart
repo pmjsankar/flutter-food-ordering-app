@@ -1,25 +1,26 @@
 class DiningModel {
-  String title;
-  String rating;
-  String offer;
-  String address;
-  String timing;
-  String map;
-  String desc;
-  String imageUrl;
+  final String title;
+  final String rating;
+  final String offer;
+  final String address;
+  final String timing;
+  final String map;
+  final String desc;
+  final String imageUrl;
 
-  DiningModel(
-      {this.title,
-      this.rating,
-      this.offer,
-      this.address,
-      this.timing,
-      this.map,
-      this.desc,
-      this.imageUrl});
+  DiningModel({
+    required this.title,
+    required this.rating,
+    required this.offer,
+    required this.address,
+    required this.timing,
+    required this.map,
+    required this.desc,
+    required this.imageUrl,
+  });
 
   factory DiningModel.fromJson(Map<String, dynamic> json) {
-    return new DiningModel(
+    return DiningModel(
       title: json['title'] as String,
       rating: json['rating'] as String,
       offer: json['offer'] as String,

@@ -29,7 +29,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.pmj.livemenu" // Namespace is required for AGP 8
-    compileSdkVersion 34
+    compileSdk 36
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -43,7 +43,7 @@ android {
         // applicationId "com.pmj.livemenu" // Replaced by namespace in AGP 8? No, applicationId is still valid for ID, namespace for R class.
         applicationId "com.pmj.livemenu"
         minSdkVersion flutter.minSdkVersion
-        targetSdkVersion 34
+        targetSdk 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -54,8 +54,16 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

@@ -1,14 +1,20 @@
 class OfferModel {
-  String code;
-  String title;
-  String desc;
-  bool available;
-  String imageUrl;
+  final String code;
+  final String title;
+  final String desc;
+  final bool available;
+  final String imageUrl;
 
-  OfferModel({this.code, this.title, this.desc, this.available, this.imageUrl});
+  OfferModel({
+    required this.code,
+    required this.title,
+    required this.desc,
+    required this.available,
+    required this.imageUrl,
+  });
 
   factory OfferModel.fromJson(Map<String, dynamic> json) {
-    return new OfferModel(
+    return OfferModel(
       code: json['code'] as String,
       title: json['title'] as String,
       desc: json['desc'] as String,

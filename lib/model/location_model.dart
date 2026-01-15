@@ -1,20 +1,20 @@
 import 'dart:convert';
 
 class LocationModel {
-  String title;
-  String address;
-  String type;
-  bool selected;
+  final String title;
+  final String address;
+  final String type;
+  final bool selected;
 
   LocationModel({
-    this.title,
-    this.address,
-    this.type,
-    this.selected,
+    required this.title,
+    required this.address,
+    required this.type,
+    required this.selected,
   });
 
   factory LocationModel.fromJson(Map<String, dynamic> json) {
-    return new LocationModel(
+    return LocationModel(
       title: json['title'] as String,
       address: json['address'] as String,
       type: json['type'] as String,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Orders extends StatefulWidget {
-  Orders({Key key}) : super(key: key);
+  const Orders({super.key});
 
   @override
   _Orders createState() => _Orders();
@@ -10,7 +10,7 @@ class Orders extends StatefulWidget {
 class _Orders extends State<Orders> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
         body: Center(
       child: Text(
         'Coming soon...',

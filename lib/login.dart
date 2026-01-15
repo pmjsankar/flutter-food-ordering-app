@@ -4,27 +4,27 @@ import 'package:livemenu/otp.dart';
 
 //
 class Login extends StatefulWidget {
-  Login({Key key}) : super(key: key);
+  const Login({super.key});
 
   @override
   _Login createState() => _Login();
 }
 
 class _Login extends State<Login> {
-  TextEditingController phoneController = new TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   bool _validate = true;
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                   left: 20.0, top: 90.0, right: 10.0, bottom: 0.0),
               child: Text(
                 'Live Menu',
@@ -34,8 +34,8 @@ class _Login extends State<Login> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                   left: 20.0, top: 10.0, right: 10.0, bottom: 0.0),
               child: Text(
                 'Curated food menu from your nearby restaurants',
@@ -51,14 +51,14 @@ class _Login extends State<Login> {
               child: IconButton(
                 iconSize: 200,
                 onPressed: () {},
-                icon: CircleAvatar(
+                icon: const CircleAvatar(
                     radius: 200,
                     backgroundColor: Colors.transparent,
                     backgroundImage: AssetImage("assets/images/login.avif")),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                   left: 20.0, top: 50.0, right: 10.0, bottom: 0.0),
               child: Text(
                 'Login/Sign up with your mobile number',
@@ -70,8 +70,8 @@ class _Login extends State<Login> {
               ),
             ),
             Padding(
-              padding:
-                  EdgeInsets.only(left: 15.0, right: 15.0, top: 20, bottom: 0),
+              padding: const EdgeInsets.only(
+                  left: 15.0, right: 15.0, top: 20, bottom: 0),
               child: TextFormField(
                 maxLength: 10,
                 controller: phoneController,
@@ -83,20 +83,20 @@ class _Login extends State<Login> {
                   }
                 },
                 decoration: InputDecoration(
-                  icon: Icon(Icons.phone),
+                  icon: const Icon(Icons.phone),
                   labelText: 'Mobile number',
                   errorText:
                       _validate ? null : 'Enter your 10 digit mobile number',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                   ),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             ElevatedButton(
@@ -109,7 +109,7 @@ class _Login extends State<Login> {
                         createRoute(Otp(mobileNumber: phoneController.text)));
                   }
                 },
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.only(
                       left: 30.0, right: 30.0, top: 10, bottom: 10),
                   child: Text(

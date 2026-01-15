@@ -5,7 +5,7 @@ import 'package:livemenu/model/offers_model.dart';
 import 'package:livemenu/util/networklayer.dart';
 
 class Offers extends StatefulWidget {
-  Offers({Key key}) : super(key: key);
+  const Offers({super.key});
 
   @override
   _Offers createState() => _Offers();
@@ -17,7 +17,7 @@ class _Offers extends State<Offers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFf2f2f2),
+        backgroundColor: const Color(0xFFf2f2f2),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -28,7 +28,7 @@ class _Offers extends State<Offers> {
                     padding:
                         const EdgeInsets.only(left: 10.0, right: 0, top: 60.0),
                     child: InkWell(
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_back,
                         color: Colors.black54,
                         size: 32,
@@ -37,9 +37,9 @@ class _Offers extends State<Offers> {
                         Navigator.of(context).pop();
                       },
                     )),
-                Expanded(
-                  child: new Padding(
-                    padding: const EdgeInsets.only(left: 10.0, top: 60.0),
+                const Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0, top: 60.0),
                     child: Text(
                       'Offers',
                       style: TextStyle(
@@ -68,13 +68,13 @@ class _Offers extends State<Offers> {
                 decoration: InputDecoration(
                     labelText: "Enter coupon code",
                     suffix: Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         right: 10,
                       ),
                       child: InkWell(
                         onTap: () => _couponValid
                             ? ScaffoldMessenger.of(context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                                     backgroundColor: Colors.green,
                                     content: Text(
                                       "Yay! Offer applied",
@@ -94,7 +94,7 @@ class _Offers extends State<Offers> {
                     )),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(top: 25, left: 15, bottom: 16),
               child: Text('Available Coupons',
                   style: TextStyle(
@@ -104,30 +104,30 @@ class _Offers extends State<Offers> {
                   )),
             ),
             Expanded(
-              child: new FutureBuilder<List<OfferModel>>(
+              child: FutureBuilder<List<OfferModel>>(
                 future: getOffers(http.Client()),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) print(snapshot.error);
 
                   return snapshot.hasData
-                      ? new SingleChildScrollView(
-                          padding: EdgeInsets.all(0),
-                          physics: BouncingScrollPhysics(),
+                      ? SingleChildScrollView(
+                          padding: const EdgeInsets.all(0),
+                          physics: const BouncingScrollPhysics(),
                           child: Column(
                             children: <Widget>[
                               ListView.builder(
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   shrinkWrap: true,
-                                  padding: EdgeInsets.only(top: 0),
-                                  itemCount: snapshot.data.length,
+                                  padding: const EdgeInsets.only(top: 0),
+                                  itemCount: snapshot.data!.length,
                                   itemBuilder: (context, index) {
                                     return getListItem(
-                                        snapshot.data[index], index, context);
+                                        snapshot.data![index], index, context);
                                   })
                             ],
                           ),
                         )
-                      : new Center(child: new CircularProgressIndicator());
+                      : const Center(child: CircularProgressIndicator());
                 },
               ),
             ),
@@ -138,7 +138,7 @@ class _Offers extends State<Offers> {
   Container getListItem(OfferModel obj, int index, BuildContext context) {
     return Container(
       child: Card(
-        margin: EdgeInsets.only(
+        margin: const EdgeInsets.only(
           bottom: 10,
           top: 0,
           left: 10,
@@ -158,7 +158,7 @@ class _Offers extends State<Offers> {
                   Expanded(
                     flex: 2,
                     child: Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           left: 10, right: 25, top: 20, bottom: 10),
                       child: Image.network(obj.imageUrl,
                           width: 20, height: 40, fit: BoxFit.fill),
@@ -167,12 +167,12 @@ class _Offers extends State<Offers> {
                   Expanded(
                       flex: 6,
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             left: 0, right: 0, top: 10, bottom: 10),
                         child: SelectableText(
                           obj.code,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
@@ -191,12 +191,13 @@ class _Offers extends State<Offers> {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                        primary: obj.available ? Colors.redAccent : Colors.grey,
+                        foregroundColor:
+                            obj.available ? Colors.redAccent : Colors.grey,
                       ),
                       onPressed: () {
                         obj.available
                             ? ScaffoldMessenger.of(context)
-                                .showSnackBar(SnackBar(
+                                .showSnackBar(const SnackBar(
                                     backgroundColor: Colors.green,
                                     content: Text(
                                       "Yay! Offer applied",
@@ -214,12 +215,12 @@ class _Offers extends State<Offers> {
                 ],
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 10),
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 5, bottom: 10),
                 child: Text(
                   obj.title,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 16.0,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -229,12 +230,12 @@ class _Offers extends State<Offers> {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 0, bottom: 0),
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 0, bottom: 0),
                 child: Text(
                   obj.desc,
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.normal,
@@ -244,7 +245,8 @@ class _Offers extends State<Offers> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 5, right: 0, top: 0, bottom: 5),
+                padding:
+                    const EdgeInsets.only(left: 5, right: 0, top: 0, bottom: 5),
                 child: TextButton(
                   child: const Text('View details',
                       style: TextStyle(

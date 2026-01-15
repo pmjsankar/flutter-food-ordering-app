@@ -9,19 +9,19 @@ import 'main.dart';
 class Otp extends StatefulWidget {
   final String mobileNumber;
 
-  Otp({Key key, this.mobileNumber}) : super(key: key);
+  const Otp({super.key, required this.mobileNumber});
 
   @override
   _Otp createState() => _Otp();
 }
 
 class _Otp extends State<Otp> {
-  TextEditingController otpController = new TextEditingController();
+  final TextEditingController otpController = TextEditingController();
   bool _validate = true;
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
@@ -32,7 +32,7 @@ class _Otp extends State<Otp> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 60),
+              padding: const EdgeInsets.only(top: 60),
               child: Row(
                 children: [
                   Align(
@@ -41,13 +41,13 @@ class _Otp extends State<Otp> {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        icon: Icon(
+                        icon: const Icon(
                           Icons.arrow_back,
                           color: Colors.black87,
                         ),
-                        label: Text('')),
+                        label: const Text('')),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.topCenter,
                     child: Text(
                       'OTP verification',
@@ -60,8 +60,8 @@ class _Otp extends State<Otp> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                   left: 20.0, top: 10.0, right: 20.0, bottom: 0.0),
               child: Text(
                 'Enter the verification code sent to your mobile number',
@@ -83,15 +83,15 @@ class _Otp extends State<Otp> {
                 enableSuggestions: false,
                 autocorrect: false,
                 obscuringCharacter: '●',
-                style: TextStyle(fontSize: 13),
+                style: const TextStyle(fontSize: 13),
                 decoration: InputDecoration(
-                  icon: Icon(Icons.password),
+                  icon: const Icon(Icons.password),
                   labelText: 'OTP',
                   errorText: _validate ? null : 'Enter the 4 digit OTP',
-                  labelStyle: TextStyle(
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                   ),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black),
                   ),
                 ),
@@ -103,7 +103,7 @@ class _Otp extends State<Otp> {
                 },
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             ElevatedButton(
@@ -115,12 +115,12 @@ class _Otp extends State<Otp> {
                     saveLogin(widget.mobileNumber);
                     Navigator.pushAndRemoveUntil(
                       context,
-                      createRoute(HomePage()),
+                      createRoute(const HomePage()),
                       (route) => false,
                     );
                   }
                 },
-                child: Padding(
+                child: const Padding(
                   padding: EdgeInsets.only(
                       left: 30.0, right: 30.0, top: 10, bottom: 10),
                   child: Text(
@@ -141,8 +141,8 @@ class _Otp extends State<Otp> {
     });
   }
 
-  saveLogin(String mobileNumber) async {
+  Future<void> saveLogin(String mobileNumber) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(Constants.LOGIN, mobileNumber);
+    prefs.setString(Constants.login, mobileNumber);
   }
 }

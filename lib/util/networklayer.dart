@@ -13,7 +13,7 @@ import '../model/menu_model.dart';
 import '../model/offers_model.dart';
 
 Future<List<DeliveryModel>> fetchDeliveryDetails(http.Client client) async {
-  final response = await client.get(Uri.parse(ApiEndPoint.LIVE_MENU));
+  final response = await client.get(Uri.parse(ApiEndPoint.liveMenu));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseData, response.body);
 }
@@ -23,13 +23,13 @@ List<DeliveryModel> parseData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
   List<DeliveryModel> list = parsed
-      .map<DeliveryModel>((json) => new DeliveryModel.fromJson(json))
+      .map<DeliveryModel>((json) => DeliveryModel.fromJson(json))
       .toList();
   return list;
 }
 
 Future<List<DiningModel>> getDining(http.Client client) async {
-  final response = await client.get(Uri.parse(ApiEndPoint.DINING));
+  final response = await client.get(Uri.parse(ApiEndPoint.dining));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseDiningData, response.body);
 }
@@ -38,14 +38,13 @@ Future<List<DiningModel>> getDining(http.Client client) async {
 List<DiningModel> parseDiningData(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
-  List<DiningModel> list = parsed
-      .map<DiningModel>((json) => new DiningModel.fromJson(json))
-      .toList();
+  List<DiningModel> list =
+      parsed.map<DiningModel>((json) => DiningModel.fromJson(json)).toList();
   return list;
 }
 
 Future<List<MenuModel>> getMenu(http.Client client) async {
-  final response = await client.get(Uri.parse(ApiEndPoint.MENU));
+  final response = await client.get(Uri.parse(ApiEndPoint.menu));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseDiningMenu, response.body);
 }
@@ -55,12 +54,12 @@ List<MenuModel> parseDiningMenu(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
   List<MenuModel> list =
-      parsed.map<MenuModel>((json) => new MenuModel.fromJson(json)).toList();
+      parsed.map<MenuModel>((json) => MenuModel.fromJson(json)).toList();
   return list;
 }
 
 Future<List<OfferModel>> getOffers(http.Client client) async {
-  final response = await client.get(Uri.parse(ApiEndPoint.OFFERS));
+  final response = await client.get(Uri.parse(ApiEndPoint.offers));
   // Use the compute function to run parsePhotos in a separate isolate
   return compute(parseOffers, response.body);
 }
@@ -70,29 +69,31 @@ List<OfferModel> parseOffers(String responseBody) {
   final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
 
   List<OfferModel> list =
-      parsed.map<OfferModel>((json) => new OfferModel.fromJson(json)).toList();
+      parsed.map<OfferModel>((json) => OfferModel.fromJson(json)).toList();
   return list;
 }
 
-Future<void> launchURL(BuildContext context, String _url) async {
+Future<void> launchURL(BuildContext context, String url) async {
   final theme = Theme.of(context);
   try {
-    await launch(
-      _url,
-      customTabsOption: CustomTabsOption(
-        toolbarColor: theme.primaryColor,
-        enableDefaultShare: true,
-        enableUrlBarHiding: true,
-        showPageTitle: true,
-        animation: CustomTabsSystemAnimation.slideIn(),
-        extraCustomTabs: const <String>[
-          // ref. https://play.google.com/store/apps/details?id=org.mozilla.firefox
-          'org.mozilla.firefox',
-          // ref. https://play.google.com/store/apps/details?id=com.microsoft.emmx
-          'com.microsoft.emmx',
-        ],
+    await launchUrl(
+      Uri.parse(url),
+      customTabsOptions: CustomTabsOptions(
+        colorSchemes: CustomTabsColorSchemes.defaults(
+          toolbarColor: theme.primaryColor,
+        ),
+        shareState: CustomTabsShareState.on,
+        urlBarHidingEnabled: true,
+        showTitle: true,
+        animations: CustomTabsSystemAnimations.slideIn(),
+        browser: const CustomTabsBrowserConfiguration(
+          fallbackCustomTabs: [
+            'org.mozilla.firefox',
+            'com.microsoft.emmx',
+          ],
+        ),
       ),
-      safariVCOption: SafariViewControllerOption(
+      safariVCOptions: SafariViewControllerOptions(
         preferredBarTintColor: theme.primaryColor,
         preferredControlTintColor: Colors.white,
         barCollapsingEnabled: true,

@@ -9,30 +9,27 @@ import '../util/constants.dart';
 import 'login.dart';
 
 class Profile extends StatefulWidget {
-  Profile();
+  const Profile({super.key});
 
   @override
   _Profile createState() => _Profile();
 }
 
 class _Profile extends State<Profile> {
-  var _image;
-  var imagePicker;
-  var mobileNumber = '';
-
-  _Profile();
+  File? _image;
+  final ImagePicker imagePicker = ImagePicker();
+  String mobileNumber = '';
 
   @override
   void initState() {
     super.initState();
-    imagePicker = new ImagePicker();
     getLogin();
   }
 
   @override
   Widget build(BuildContext context) {
-    Color c = const Color(0xFFf2f2f2);
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    const Color c = Color(0xFFf2f2f2);
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light));
     return Scaffold(
@@ -51,7 +48,7 @@ class _Profile extends State<Profile> {
                 children: [
                   ColorFiltered(
                     colorFilter: ColorFilter.mode(
-                        Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                        Colors.black.withValues(alpha: 0.5), BlendMode.dstATop),
                     child: Image.asset(
                       'assets/images/banner1.webp',
                     ),
@@ -78,12 +75,12 @@ class _Profile extends State<Profile> {
                                   backgroundColor: Colors.transparent,
                                   backgroundImage: _image != null
                                       ? Image.file(
-                                          _image,
+                                          _image!,
                                           width: 200.0,
                                           height: 200.0,
                                           fit: BoxFit.fitHeight,
                                         ).image
-                                      : new AssetImage(
+                                      : const AssetImage(
                                           "assets/images/user.png")),
                             ),
                           ],
@@ -91,11 +88,12 @@ class _Profile extends State<Profile> {
                       ],
                     ),
                     Card(
-                      margin: EdgeInsets.only(top: 10.0, left: 10, right: 10),
+                      margin:
+                          const EdgeInsets.only(top: 10.0, left: 10, right: 10),
                       child: Column(
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
+                          const Padding(
+                            padding: EdgeInsets.only(
                               top: 20.0,
                               bottom: 10,
                             ),
@@ -105,12 +103,12 @@ class _Profile extends State<Profile> {
                                   TextStyle(color: Colors.black, fontSize: 22),
                             ),
                           ),
-                          Divider(
+                          const Divider(
                             indent: 10,
                             endIndent: 10,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 5.0),
                             child: Text(
                               'user1@mail.com',
                               style:
@@ -122,17 +120,17 @@ class _Profile extends State<Profile> {
                                 const EdgeInsets.only(top: 5.0, bottom: 20),
                             child: Text(
                               mobileNumber,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 15),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 15),
                             ),
                           )
                         ],
                       ),
                     ),
                     GridView.count(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         // Create a grid with 2 columns. If you change the scrollDirection to
                         // horizontal, this produces 2 rows.
                         crossAxisCount: 2,
@@ -141,14 +139,14 @@ class _Profile extends State<Profile> {
                           Card(
                             semanticContainer: true,
                             clipBehavior: Clip.antiAliasWithSaveLayer,
-                            margin: EdgeInsets.all(10.0),
+                            margin: const EdgeInsets.all(10.0),
                             child: InkWell(
                               onTap: () => ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text("No orders yet"),
                               )),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
+                              child: const Padding(
+                                padding: EdgeInsets.only(top: 5.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -158,7 +156,7 @@ class _Profile extends State<Profile> {
                                       size: 48,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
+                                      padding: EdgeInsets.only(top: 15.0),
                                       child: Text(
                                         'Orders',
                                         style: TextStyle(
@@ -171,14 +169,14 @@ class _Profile extends State<Profile> {
                             ),
                           ),
                           Card(
-                            margin: EdgeInsets.all(10.0),
+                            margin: const EdgeInsets.all(10.0),
                             child: InkWell(
                               onTap: () => ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text("No access"),
                               )),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
+                              child: const Padding(
+                                padding: EdgeInsets.only(top: 5.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -188,7 +186,7 @@ class _Profile extends State<Profile> {
                                       size: 48,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
+                                      padding: EdgeInsets.only(top: 15.0),
                                       child: Text(
                                         'Account',
                                         style: TextStyle(
@@ -201,14 +199,14 @@ class _Profile extends State<Profile> {
                             ),
                           ),
                           Card(
-                            margin: EdgeInsets.all(10.0),
+                            margin: const EdgeInsets.all(10.0),
                             child: InkWell(
                               onTap: () => ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text("No notifications to show"),
                               )),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 5.0),
+                              child: const Padding(
+                                padding: EdgeInsets.only(top: 5.0),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -218,7 +216,7 @@ class _Profile extends State<Profile> {
                                       color: Colors.blueGrey,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(top: 15.0),
+                                      padding: EdgeInsets.only(top: 15.0),
                                       child: Text(
                                         'Notifications',
                                         style: TextStyle(
@@ -231,13 +229,13 @@ class _Profile extends State<Profile> {
                             ),
                           ),
                           Card(
-                            margin: EdgeInsets.all(10.0),
+                            margin: const EdgeInsets.all(10.0),
                             child: InkWell(
                               onTap: () => ScaffoldMessenger.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .showSnackBar(const SnackBar(
                                 content: Text("Coming soon..."),
                               )),
-                              child: Column(
+                              child: const Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
@@ -246,7 +244,7 @@ class _Profile extends State<Profile> {
                                     color: Colors.blueGrey,
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
+                                    padding: EdgeInsets.only(top: 15.0),
                                     child: Text(
                                       'Help',
                                       style: TextStyle(
@@ -288,40 +286,44 @@ class _Profile extends State<Profile> {
           return SafeArea(
             child: Wrap(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0, top: 15.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 10.0, top: 15.0),
                   child: Text(
                     'Update profile image',
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                 ),
-                new ListTile(
-                    leading: new Icon(Icons.photo_library),
-                    title: new Text('Gallery'),
+                ListTile(
+                    leading: const Icon(Icons.photo_library),
+                    title: const Text('Gallery'),
                     onTap: () async {
                       Navigator.of(context).pop();
                       var source = ImageSource.gallery;
-                      XFile image = await imagePicker.pickImage(
+                      XFile? image = await imagePicker.pickImage(
                           source: source,
                           imageQuality: 50,
                           preferredCameraDevice: CameraDevice.front);
-                      setState(() {
-                        _image = File(image.path);
-                      });
+                      if (image != null) {
+                        setState(() {
+                          _image = File(image.path);
+                        });
+                      }
                     }),
-                new ListTile(
-                  leading: new Icon(Icons.photo_camera),
-                  title: new Text('Camera'),
+                ListTile(
+                  leading: const Icon(Icons.photo_camera),
+                  title: const Text('Camera'),
                   onTap: () async {
                     Navigator.of(context).pop();
                     var source = ImageSource.camera;
-                    XFile image = await imagePicker.pickImage(
+                    XFile? image = await imagePicker.pickImage(
                         source: source,
                         imageQuality: 50,
                         preferredCameraDevice: CameraDevice.front);
-                    setState(() {
-                      _image = File(image.path);
-                    });
+                    if (image != null) {
+                      setState(() {
+                        _image = File(image.path);
+                      });
+                    }
                   },
                 ),
               ],
@@ -330,16 +332,16 @@ class _Profile extends State<Profile> {
         });
   }
 
-  getLogin() async {
+  Future<void> getLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      mobileNumber = prefs.getString(Constants.LOGIN) ?? '';
+      mobileNumber = prefs.getString(Constants.login) ?? '';
     });
   }
 
-  logout() async {
+  Future<void> logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove(Constants.LOGIN);
+    prefs.remove(Constants.login);
     setState(() {
       mobileNumber = '';
     });
@@ -351,8 +353,8 @@ class _Profile extends State<Profile> {
       barrierDismissible: true,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Logout'),
-          content: Text('Are you sure you want to logout?'),
+          title: const Text('Logout'),
+          content: const Text('Are you sure you want to logout?'),
           actions: <Widget>[
             TextButton(
               child: const Text('Yes'),
@@ -360,7 +362,7 @@ class _Profile extends State<Profile> {
                 Navigator.of(context).pop();
                 Navigator.pushAndRemoveUntil(
                   context,
-                  createRoute(Login()),
+                  createRoute(const Login()),
                   (route) => false,
                 );
                 logout();

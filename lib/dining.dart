@@ -7,7 +7,7 @@ import '../model/dining_model.dart';
 import '../util/networklayer.dart';
 
 class Dining extends StatefulWidget {
-  Dining({Key key}) : super(key: key);
+  const Dining({super.key});
 
   @override
   _Dining createState() => _Dining();
@@ -29,7 +29,7 @@ class _Dining extends State<Dining> {
   }
 
   fetchDiningList() async {
-    List dineList = await getDining(new http.Client());
+    List<DiningModel> dineList = await getDining(http.Client());
     setState(() {
       diningList = dineList;
     });
@@ -43,7 +43,7 @@ class _Dining extends State<Dining> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
     return Scaffold(
@@ -56,7 +56,7 @@ class _Dining extends State<Dining> {
             onChanged: (text) {
               filterList(text.toLowerCase());
             },
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: "Search restaurants, cuisine..",
               isDense: true,
               // now you can customize it here or add padding widget
@@ -72,24 +72,24 @@ class _Dining extends State<Dining> {
         ),
         Expanded(
             child: SingleChildScrollView(
-          padding: EdgeInsets.all(0),
-          physics: BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(0),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[
               diningListFiltered.isNotEmpty
                   ? ListView.builder(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 20),
                       itemCount: diningListFiltered.length,
                       itemBuilder: (context, index) {
                         return getListItem(
                             diningListFiltered[index], index, context);
                       })
                   : ListView.builder(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
-                      padding: EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 20),
                       itemCount: diningList.length,
                       itemBuilder: (context, index) {
                         return getListItem(diningList[index], index, context);
@@ -104,7 +104,7 @@ class _Dining extends State<Dining> {
   Container getListItem(DiningModel obj, int index, BuildContext context) {
     return Container(
         child: Card(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 20,
         top: 0,
         left: 10,
@@ -131,12 +131,12 @@ class _Dining extends State<Dining> {
                   children: [
                     Flexible(
                       child: Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             bottom: 6, left: 12, right: 10, top: 8),
                         child: Text(
                           obj.title,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18.0,
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
@@ -176,12 +176,12 @@ class _Dining extends State<Dining> {
                   ],
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 12, right: 10, top: 0),
+                  padding: const EdgeInsets.only(
+                      bottom: 5, left: 12, right: 10, top: 0),
                   child: Text(
                     obj.desc,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.black45,
                       fontWeight: FontWeight.normal,
@@ -191,12 +191,12 @@ class _Dining extends State<Dining> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 12, right: 10, top: 0),
+                  padding: const EdgeInsets.only(
+                      bottom: 5, left: 12, right: 10, top: 0),
                   child: Text(
                     obj.address,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.black38,
                       fontWeight: FontWeight.normal,
@@ -205,12 +205,12 @@ class _Dining extends State<Dining> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 5, left: 12, right: 10, top: 0),
+                  padding: const EdgeInsets.only(
+                      bottom: 5, left: 12, right: 10, top: 0),
                   child: Text(
                     obj.timing,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 12.0,
                       color: Colors.black87,
                       fontWeight: FontWeight.normal,
@@ -219,27 +219,27 @@ class _Dining extends State<Dining> {
                   ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 6, left: 12, right: 10, top: 0),
+                  padding: const EdgeInsets.only(
+                      bottom: 6, left: 12, right: 10, top: 0),
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.rectangle,
                       color: Colors.green,
-                      borderRadius: new BorderRadius.all(Radius.circular(3.0)),
+                      borderRadius: BorderRadius.all(Radius.circular(3.0)),
                     ),
-                    padding: EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.all(2.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.star,
                           color: Colors.white,
                           size: 8,
                         ),
                         Text(
                           obj.rating,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 14.0,
                             color: Colors.white,
@@ -262,7 +262,7 @@ class _Dining extends State<Dining> {
                             onTap: () {
                               launchURL(context, obj.map);
                             },
-                            child: SizedBox(
+                            child: const SizedBox(
                                 width: 28,
                                 height: 28,
                                 child: Icon(
@@ -284,9 +284,9 @@ class _Dining extends State<Dining> {
                             splashColor: Colors.grey, // Splash color
                             onTap: () {
                               Share.share(obj.map,
-                                  subject: obj.title + "\n" + obj.desc);
+                                  subject: "${obj.title}\n${obj.desc}");
                             },
-                            child: SizedBox(
+                            child: const SizedBox(
                                 width: 28,
                                 height: 28,
                                 child: Icon(
@@ -310,7 +310,7 @@ class _Dining extends State<Dining> {
 
   void filterList(String searchText) {
     diningListFiltered.clear();
-    if (searchText != null && searchText.isNotEmpty) {
+    if (searchText.isNotEmpty) {
       List<DiningModel> diningListLatest = List.empty(growable: true);
       for (int i = 0; i < diningList.length; i++) {
         if (diningList[i].title.toLowerCase().contains(searchText) ||

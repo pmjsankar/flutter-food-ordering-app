@@ -1,15 +1,20 @@
 class CheckoutModel {
-  String title;
-  int price;
+  final String title;
+  final int price;
   int quantity;
-  bool veg;
-  String imageUrl;
+  final bool veg;
+  final String imageUrl;
 
-  CheckoutModel(
-      {this.title, this.price, this.quantity, this.veg, this.imageUrl});
+  CheckoutModel({
+    required this.title,
+    required this.price,
+    required this.quantity,
+    required this.veg,
+    required this.imageUrl,
+  });
 
   factory CheckoutModel.fromJson(Map<String, dynamic> json) {
-    return new CheckoutModel(
+    return CheckoutModel(
       title: json['title'] as String,
       price: json['price'] as int,
       quantity: json['quantity'] as int,

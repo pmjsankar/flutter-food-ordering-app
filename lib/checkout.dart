@@ -17,8 +17,11 @@ class Checkout extends StatefulWidget {
   final int tax = 8;
   final List<CheckoutModel> selectedItems;
 
-  Checkout({Key key, this.obj, this.selectedItems, this.totalPrice})
-      : super(key: key);
+  const Checkout(
+      {super.key,
+      required this.obj,
+      required this.selectedItems,
+      required this.totalPrice});
 
   @override
   _Checkout createState() => _Checkout();
@@ -40,7 +43,7 @@ class _Checkout extends State<Checkout> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
 
@@ -58,7 +61,7 @@ class _Checkout extends State<Checkout> {
                 padding:
                     const EdgeInsets.only(left: 10.0, right: 10, top: 60.0),
                 child: InkWell(
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back,
                     color: Colors.black54,
                     size: 32,
@@ -68,11 +71,11 @@ class _Checkout extends State<Checkout> {
                   },
                 )),
             Expanded(
-              child: new Padding(
+              child: Padding(
                 padding: const EdgeInsets.only(left: 3.0, top: 60.0),
                 child: Text(
                   widget.obj.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -83,17 +86,17 @@ class _Checkout extends State<Checkout> {
                 padding:
                     const EdgeInsets.only(left: 10.0, right: 10, top: 60.0),
                 child: InkWell(
-                  child: Icon(
+                  child: const Icon(
                     Icons.local_offer,
                     color: Colors.orange,
                     size: 24,
                   ),
-                  onTap: () => Navigator.push(
-                      context, MaterialPageRoute(builder: (_) => Offers())),
+                  onTap: () => Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const Offers())),
                 )),
           ],
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(top: 10, bottom: 10),
           child: Divider(
             height: 1,
@@ -106,16 +109,17 @@ class _Checkout extends State<Checkout> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 2, top: 2),
+              padding:
+                  const EdgeInsets.only(bottom: 5, left: 16, right: 2, top: 2),
               child: InkWell(
-                child: Icon(
+                child: const Icon(
                   Icons.location_on_rounded,
                   color: Colors.red,
                 ),
                 onTap: () {},
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(bottom: 5, left: 6, right: 2, top: 2),
               child: Text(
                 'Delivery at ',
@@ -130,11 +134,12 @@ class _Checkout extends State<Checkout> {
             ),
             Flexible(
                 child: Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 14, right: 10, top: 2),
+              padding:
+                  const EdgeInsets.only(bottom: 5, left: 14, right: 10, top: 2),
               child: Text(
-                location.title + ', ' + location.address,
+                '${location.title}, ${location.address}',
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.black,
                   fontWeight: FontWeight.normal,
@@ -150,16 +155,17 @@ class _Checkout extends State<Checkout> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 2, top: 2),
+              padding:
+                  const EdgeInsets.only(bottom: 5, left: 16, right: 2, top: 2),
               child: InkWell(
-                child: Icon(
+                child: const Icon(
                   Icons.timer,
                   color: Colors.green,
                 ),
                 onTap: () {},
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(bottom: 5, left: 7, right: 16, top: 2),
               child: Text(
                 'Delivery in ',
@@ -172,7 +178,7 @@ class _Checkout extends State<Checkout> {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Text(
+            const Text(
               '26 mins',
               textAlign: TextAlign.start,
               style: TextStyle(
@@ -183,7 +189,7 @@ class _Checkout extends State<Checkout> {
             ),
           ],
         ),
-        Divider(
+        const Divider(
           indent: 10,
           endIndent: 10,
           color: Colors.grey,
@@ -193,16 +199,17 @@ class _Checkout extends State<Checkout> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 2, top: 20),
+              padding:
+                  const EdgeInsets.only(bottom: 5, left: 16, right: 2, top: 20),
               child: InkWell(
-                child: Icon(
+                child: const Icon(
                   Icons.fastfood,
                   color: Colors.green,
                 ),
                 onTap: () {},
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(bottom: 5, left: 7, right: 16, top: 20),
               child: Text(
                 'Your Order',
@@ -216,18 +223,18 @@ class _Checkout extends State<Checkout> {
             ),
           ],
         ),
-        Container(
+        SizedBox(
           height: 200,
           child: ListView.builder(
-              physics: ScrollPhysics(),
+              physics: const ScrollPhysics(),
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 6),
+              padding: const EdgeInsets.only(top: 6),
               itemCount: widget.selectedItems.length,
               itemBuilder: (context, index) {
                 return getListItem(widget.selectedItems[index], index, context);
               }),
         ),
-        Divider(
+        const Divider(
           thickness: 1,
           indent: 16,
           endIndent: 16,
@@ -235,7 +242,7 @@ class _Checkout extends State<Checkout> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
               child: Text(
                 'Delivery Fee',
@@ -248,11 +255,12 @@ class _Checkout extends State<Checkout> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 14),
+              padding: const EdgeInsets.only(
+                  bottom: 5, left: 16, right: 20, top: 14),
               child: Text(
-                '₹' + widget.deliveryFee.toString(),
+                '₹${widget.deliveryFee}',
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
@@ -264,7 +272,7 @@ class _Checkout extends State<Checkout> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
               child: Text(
                 'Taxes & Charges',
@@ -277,11 +285,12 @@ class _Checkout extends State<Checkout> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 14),
+              padding: const EdgeInsets.only(
+                  bottom: 5, left: 16, right: 20, top: 14),
               child: Text(
-                '₹' + widget.tax.toString(),
+                '₹${widget.tax}',
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14.0,
                   color: Colors.black54,
                   fontWeight: FontWeight.bold,
@@ -290,7 +299,7 @@ class _Checkout extends State<Checkout> {
             ),
           ],
         ),
-        Divider(
+        const Divider(
           thickness: 1,
           indent: 16,
           endIndent: 16,
@@ -298,7 +307,7 @@ class _Checkout extends State<Checkout> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
               child: Text(
                 'To Pay',
@@ -311,11 +320,12 @@ class _Checkout extends State<Checkout> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 14),
+              padding: const EdgeInsets.only(
+                  bottom: 5, left: 16, right: 20, top: 14),
               child: Text(
-                '₹' + totalPay.toString(),
+                '₹$totalPay',
                 textAlign: TextAlign.start,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16.0,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
@@ -324,7 +334,7 @@ class _Checkout extends State<Checkout> {
             ),
           ],
         ),
-        Divider(
+        const Divider(
           thickness: 5,
           indent: 16,
           endIndent: 16,
@@ -333,17 +343,17 @@ class _Checkout extends State<Checkout> {
           child: Align(
             alignment: FractionalOffset.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.only(bottom: 10.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding:
-                        EdgeInsets.only(bottom: 5, left: 48, right: 8, top: 0),
+                    padding: const EdgeInsets.only(
+                        bottom: 5, left: 48, right: 8, top: 0),
                     child: Text(
-                      '₹' + totalPay.toString(),
+                      '₹$totalPay',
                       textAlign: TextAlign.start,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18.0,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -351,13 +361,13 @@ class _Checkout extends State<Checkout> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 15, left: 8, right: 20, top: 14),
                     child: ElevatedButton.icon(
                       onPressed: () {
                         // Respond to button press
                       },
-                      label: Padding(
+                      label: const Padding(
                         padding: EdgeInsets.only(
                             top: 12, bottom: 12, left: 10, right: 10),
                         child: Text(
@@ -369,7 +379,7 @@ class _Checkout extends State<Checkout> {
                           ),
                         ),
                       ),
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.done,
                         size: 18,
                       ),
@@ -394,25 +404,25 @@ class _Checkout extends State<Checkout> {
               Row(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 12, left: 16),
-                    padding: EdgeInsets.all(2),
+                    margin: const EdgeInsets.only(top: 12, left: 16),
+                    padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.circular(3),
                         border: Border.all(width: 2, color: Colors.green)),
-                    child: Icon(
+                    child: const Icon(
                       Icons.circle,
                       color: Colors.green,
                       size: 8,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         bottom: 5, left: 16, right: 16, top: 20),
                     child: Text(
                       obj.title,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 16.0,
                         color: Colors.black,
                         fontWeight: FontWeight.normal,
@@ -422,12 +432,12 @@ class _Checkout extends State<Checkout> {
                 ],
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 20),
+                padding: const EdgeInsets.only(
+                    bottom: 5, left: 16, right: 20, top: 20),
                 child: Text(
                   obj.quantity.toString(),
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.normal,
@@ -440,12 +450,12 @@ class _Checkout extends State<Checkout> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding:
-                    EdgeInsets.only(bottom: 5, left: 48, right: 16, top: 0),
+                padding: const EdgeInsets.only(
+                    bottom: 5, left: 48, right: 16, top: 0),
                 child: Text(
-                  '₹' + obj.price.toString(),
+                  '₹${obj.price}',
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.black,
                     fontWeight: FontWeight.normal,
@@ -453,12 +463,12 @@ class _Checkout extends State<Checkout> {
                 ),
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(bottom: 5, left: 16, right: 20, top: 0),
+                padding: const EdgeInsets.only(
+                    bottom: 5, left: 16, right: 20, top: 0),
                 child: Text(
-                  '₹' + (obj.price * obj.quantity).toString(),
+                  '₹${obj.price * obj.quantity}',
                   textAlign: TextAlign.start,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14.0,
                     color: Colors.black87,
                     fontWeight: FontWeight.bold,
@@ -474,10 +484,10 @@ class _Checkout extends State<Checkout> {
 
   savedLocation() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String locationJson = prefs.getString(Constants.SELECTED_LOCATION);
+    String? locationJson = prefs.getString(Constants.selectedLocation);
     if (locationJson != null) {
-      Map decode_options = jsonDecode(locationJson);
-      LocationModel locationOj = LocationModel.fromJson(decode_options);
+      Map<String, dynamic> decodeOptions = jsonDecode(locationJson);
+      LocationModel locationOj = LocationModel.fromJson(decodeOptions);
       setState(() {
         location = locationOj;
       });

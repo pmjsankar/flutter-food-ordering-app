@@ -11,7 +11,7 @@ import '../util/networklayer.dart';
 class Menu extends StatefulWidget {
   final DeliveryModel obj;
 
-  Menu({Key key, this.obj}) : super(key: key);
+  const Menu({super.key, required this.obj});
 
   @override
   _Menu createState() => _Menu();
@@ -38,7 +38,7 @@ class _Menu extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.dark));
 
@@ -53,7 +53,7 @@ class _Menu extends State<Menu> {
                 padding:
                     const EdgeInsets.only(left: 10.0, right: 10, top: 60.0),
                 child: InkWell(
-                  child: Icon(
+                  child: const Icon(
                     Icons.arrow_back,
                     color: Colors.black54,
                     size: 32,
@@ -63,11 +63,11 @@ class _Menu extends State<Menu> {
                   },
                 )),
             Expanded(
-              child: new Padding(
+              child: Padding(
                 padding: const EdgeInsets.only(left: 3.0, top: 60.0),
                 child: Text(
                   widget.obj.title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -108,13 +108,13 @@ class _Menu extends State<Menu> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           bottom: 5, left: 20, right: 10, top: 6),
                       child: Flexible(
                         child: Text(
                           widget.obj.desc,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 14.0,
                             color: Colors.black38,
                             fontWeight: FontWeight.normal,
@@ -124,12 +124,12 @@ class _Menu extends State<Menu> {
                         ),
                       )),
                   Padding(
-                    padding:
-                        EdgeInsets.only(bottom: 5, left: 20, right: 10, top: 2),
+                    padding: const EdgeInsets.only(
+                        bottom: 5, left: 20, right: 10, top: 2),
                     child: Text(
                       widget.obj.address,
                       textAlign: TextAlign.start,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 14.0,
                         color: Colors.black54,
                         fontWeight: FontWeight.normal,
@@ -143,8 +143,8 @@ class _Menu extends State<Menu> {
             ),
             Flexible(
               child: Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 6, left: 6, right: 12, top: 0),
+                  padding: const EdgeInsets.only(
+                      bottom: 6, left: 6, right: 12, top: 0),
                   child: Card(
                     elevation: 3,
                     color: Colors.green,
@@ -152,19 +152,19 @@ class _Menu extends State<Menu> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Container(
-                          padding: EdgeInsets.all(2.0),
+                          padding: const EdgeInsets.all(2.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 color: Colors.white,
                                 size: 14,
                               ),
                               Text(
                                 widget.obj.rating,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16.0,
                                   color: Colors.white,
@@ -173,7 +173,7 @@ class _Menu extends State<Menu> {
                             ],
                           ),
                         ),
-                        Padding(
+                        const Padding(
                           padding:
                               EdgeInsets.only(left: 4, right: 4, bottom: 6),
                           child: Column(
@@ -211,15 +211,16 @@ class _Menu extends State<Menu> {
           ],
         ),
         Padding(
-            padding: EdgeInsets.only(bottom: 5, left: 20, right: 10, top: 2),
+            padding:
+                const EdgeInsets.only(bottom: 5, left: 20, right: 10, top: 2),
             child: Container(
-                decoration: new BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.black12,
                   shape: BoxShape.rectangle,
-                  borderRadius: new BorderRadius.all(Radius.circular(8.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(8.0)),
                 ),
                 child: InkWell(
-                  child: Padding(
+                  child: const Padding(
                     padding: EdgeInsets.all(6),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
@@ -245,13 +246,13 @@ class _Menu extends State<Menu> {
                   ),
                   onTap: () {},
                 ))),
-        Divider(
+        const Divider(
           indent: 10,
           endIndent: 10,
           color: Colors.grey,
         ),
         Padding(
-            padding: EdgeInsets.only(left: 17),
+            padding: const EdgeInsets.only(left: 17),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,14 +261,14 @@ class _Menu extends State<Menu> {
                   children: [
                     Switch(
                       value: _switchValueVeg,
-                      activeColor: Colors.green,
+                      activeThumbColor: Colors.green,
                       onChanged: (value) {
                         setState(() {
                           _switchValueVeg = value;
                         });
                       },
                     ),
-                    Text(
+                    const Text(
                       'Veg',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
@@ -275,19 +276,19 @@ class _Menu extends State<Menu> {
                         color: Colors.black,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 30,
                     ),
                     Switch(
                       value: _switchValueNonVeg,
-                      activeColor: Colors.red,
+                      activeThumbColor: Colors.red,
                       onChanged: (value) {
                         setState(() {
                           _switchValueNonVeg = value;
                         });
                       },
                     ),
-                    Text(
+                    const Text(
                       'Non-Veg',
                       style: TextStyle(
                         fontWeight: FontWeight.normal,
@@ -297,7 +298,7 @@ class _Menu extends State<Menu> {
                     ),
                   ],
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: Text(
                     'Recommended',
@@ -311,30 +312,30 @@ class _Menu extends State<Menu> {
               ],
             )),
         Expanded(
-          child: new FutureBuilder<List<MenuModel>>(
-            future: getMenu(new http.Client()),
+          child: FutureBuilder<List<MenuModel>>(
+            future: getMenu(http.Client()),
             builder: (context, snapshot) {
-              if (snapshot.hasError) print(snapshot.error);
+              if (snapshot.hasError) debugPrint(snapshot.error.toString());
 
               return snapshot.hasData
-                  ? new SingleChildScrollView(
-                      padding: EdgeInsets.all(0),
-                      physics: ScrollPhysics(),
+                  ? SingleChildScrollView(
+                      padding: const EdgeInsets.all(0),
+                      physics: const ScrollPhysics(),
                       child: Column(
                         children: <Widget>[
                           ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              padding: EdgeInsets.only(top: 20),
-                              itemCount: snapshot.data.length,
+                              padding: const EdgeInsets.only(top: 20),
+                              itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
                                 return getListItem(
-                                    snapshot.data[index], index, context);
+                                    snapshot.data![index], index, context);
                               })
                         ],
                       ),
                     )
-                  : new Center(child: new CircularProgressIndicator());
+                  : const Center(child: CircularProgressIndicator());
             },
           ),
         ),
@@ -342,7 +343,7 @@ class _Menu extends State<Menu> {
           InkWell(
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 color: Colors.lightGreen,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -351,13 +352,13 @@ class _Menu extends State<Menu> {
                       (itemCount > 1)
                           ? '$itemCount ITEMS  |  $totalPrice'
                           : '$itemCount ITEM  |  $totalPrice',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 16.0,
                         color: Colors.white,
                       ),
                     ),
-                    Text(
+                    const Text(
                       'VIEW CART >',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -380,7 +381,7 @@ class _Menu extends State<Menu> {
   }
 
   Visibility getListItem(MenuModel menuObj, int index, BuildContext context) {
-    bool visible;
+    bool visible = false;
     if (_switchValueVeg != true && _switchValueNonVeg != true ||
         _switchValueVeg == true && _switchValueNonVeg == true) {
       visible = true;
@@ -400,7 +401,7 @@ class _Menu extends State<Menu> {
     return Visibility(
         visible: visible,
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: Colors.black12)),
           ),
           child: Row(
@@ -412,8 +413,8 @@ class _Menu extends State<Menu> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      margin: EdgeInsets.only(top: 12, left: 16),
-                      padding: EdgeInsets.all(2),
+                      margin: const EdgeInsets.only(top: 12, left: 16),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(3),
@@ -427,12 +428,12 @@ class _Menu extends State<Menu> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           bottom: 6, left: 16, right: 10, top: 8),
                       child: Text(
                         menuObj.title,
                         textAlign: TextAlign.start,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 17.0,
                           color: Colors.black87,
                           fontWeight: FontWeight.bold,
@@ -442,12 +443,12 @@ class _Menu extends State<Menu> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           bottom: 5, left: 16, right: 10, top: 0),
                       child: Text(
-                        '₹' + menuObj.price.toString(),
+                        '₹${menuObj.price}',
                         textAlign: TextAlign.start,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14.0,
                           color: Colors.black87,
                           fontWeight: FontWeight.normal,
@@ -456,7 +457,7 @@ class _Menu extends State<Menu> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           bottom: 5, left: 16, right: 10, top: 0),
                       child: OutlinedButton(
                         onPressed: () {
@@ -495,7 +496,7 @@ class _Menu extends State<Menu> {
                           });
                         },
                         style: OutlinedButton.styleFrom(
-                          side: BorderSide(width: 1.0, color: Colors.red),
+                          side: const BorderSide(width: 1.0, color: Colors.red),
                         ),
                         child: const Text(
                           "+ ADD",
@@ -513,8 +514,8 @@ class _Menu extends State<Menu> {
               Expanded(
                 flex: 3,
                 child: Container(
-                  margin:
-                      EdgeInsets.only(top: 14, bottom: 14, left: 10, right: 10),
+                  margin: const EdgeInsets.only(
+                      top: 14, bottom: 14, left: 10, right: 10),
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(10),

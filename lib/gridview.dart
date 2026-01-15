@@ -5,7 +5,7 @@ import 'package:livemenu/menu.dart';
 class RestaurantGridView extends StatefulWidget {
   final List<DeliveryModel> restaurantList;
 
-  RestaurantGridView({Key key, this.restaurantList}) : super(key: key);
+  const RestaurantGridView({super.key, required this.restaurantList});
 
   @override
   _RestaurantGridView createState() => _RestaurantGridView();
@@ -14,13 +14,13 @@ class RestaurantGridView extends StatefulWidget {
 class _RestaurantGridView extends State<RestaurantGridView> {
   @override
   Widget build(BuildContext context) {
-    return new GridView.count(
-      padding: EdgeInsets.all(0),
+    return GridView.count(
+      padding: const EdgeInsets.all(0),
       primary: true,
       crossAxisCount: 2,
       childAspectRatio: 0.78,
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       children: List.generate(widget.restaurantList.length, (index) {
         return getStructuredGridCell(widget.restaurantList[index], context);
       }),
@@ -31,12 +31,12 @@ class _RestaurantGridView extends State<RestaurantGridView> {
     String offer = obj.offer;
 
     return Container(
-      child: new Card(
+      child: Card(
           elevation: 2,
           child: InkWell(
               onTap: () => Navigator.push(
                   context, MaterialPageRoute(builder: (_) => Menu(obj: obj))),
-              child: new Column(
+              child: Column(
                 children: <Widget>[
                   Stack(
                     children: <Widget>[
@@ -49,14 +49,14 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: Colors.blue,
                               ),
-                              padding: EdgeInsets.all(3.0),
+                              padding: const EdgeInsets.all(3.0),
                               child: Text(
                                 '$offer % OFF',
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 10.0,
                                   color: Colors.white,
@@ -69,38 +69,38 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                     ],
                   ),
                   Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           left: 6.0, right: 6.0, top: 10, bottom: 6),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               obj.title,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 16.0,
                                   color: Colors.black87,
                                   fontWeight: FontWeight.bold),
                             ),
                             Container(
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 color: Colors.green,
                                 borderRadius:
-                                    new BorderRadius.all(Radius.circular(3.0)),
+                                    BorderRadius.all(Radius.circular(3.0)),
                               ),
-                              padding: EdgeInsets.all(1.0),
+                              padding: const EdgeInsets.all(1.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.star,
                                     color: Colors.white,
                                     size: 8,
                                   ),
                                   Text(
                                     obj.rating,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       fontWeight: FontWeight.normal,
                                       fontSize: 12.0,
                                       color: Colors.white,
@@ -110,12 +110,12 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                               ),
                             ),
                           ])),
-                  new Padding(
-                    padding: EdgeInsets.only(left: 6.0, right: 6.0),
-                    child: new Column(
+                  Padding(
+                    padding: const EdgeInsets.only(left: 6.0, right: 6.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Flexible(
@@ -123,7 +123,7 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                                 obj.desc,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 12,
                                   color: Colors.black54,
                                 ),
@@ -131,7 +131,7 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                             ),
                             Text(
                               obj.price,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 14,
                                 color: Colors.black54,
                                 fontWeight: FontWeight.bold,
@@ -144,61 +144,9 @@ class _RestaurantGridView extends State<RestaurantGridView> {
                   )
                 ],
               ))),
-      padding: EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(5.0),
     );
   }
-
-  // void showSheet(DeliveryModel obj) {
-  //   showModalBottomSheet(
-  //       context: context,
-  //       builder: (context) => Container(
-  //             margin: EdgeInsets.all(10.0),
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 SizedBox(
-  //                   height: 122.0,
-  //                   child: ListView(
-  //                     scrollDirection: Axis.horizontal,
-  //                     children:
-  //                         List.generate(widget.restaurantList.length, (index) {
-  //                       return getHorizontalListItem(
-  //                           widget.restaurantList[index], context);
-  //                     }),
-  //                   ),
-  //                 ),
-  //                 Padding(
-  //                     padding: EdgeInsets.all(5.0),
-  //                     child: Column(
-  //                         crossAxisAlignment: CrossAxisAlignment.start,
-  //                         children: [
-  //                           Text(
-  //                             obj.title,
-  //                             style: TextStyle(
-  //                               fontSize: 16.0,
-  //                               color: Colors.black87,
-  //                               fontWeight: FontWeight.bold,
-  //                             ),
-  //                           ),
-  //                           Container(
-  //                             margin: EdgeInsets.only(top: 5.0),
-  //                             child: Text(
-  //                               obj.rating,
-  //                               style: TextStyle(
-  //                                 fontSize: 12.0,
-  //                                 color: Colors.white,
-  //                               ),
-  //                             ),
-  //                             decoration:
-  //                                 new BoxDecoration(color: Colors.green),
-  //                             padding: new EdgeInsets.all(4.0),
-  //                           ),
-  //                         ]))
-  //               ],
-  //             ),
-  //           ));
-  // }
 
   Container getHorizontalListItem(DeliveryModel object, BuildContext context) {
     return Container(

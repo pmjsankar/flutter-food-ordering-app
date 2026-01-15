@@ -17,9 +17,11 @@ final List<String> imgList = [
   'https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
 ];
 
-void main() => runApp(new MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _MyApp();
@@ -27,16 +29,16 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  var mobileNumber;
+  String? mobileNumber;
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarBrightness: Brightness.dark,
       statusBarIconBrightness: Brightness.dark,
     ));
-    return new MaterialApp(
+    return MaterialApp(
       theme: ThemeData(fontFamily: 'Poppins'),
       debugShowCheckedModeBanner: false,
       home: navigateNext(),
@@ -49,23 +51,25 @@ class _MyApp extends State<MyApp> {
     getLogin();
   }
 
-  navigateNext() {
+  Widget navigateNext() {
     if (mobileNumber != null) {
-      return new HomePage();
+      return const HomePage();
     } else {
-      return new Login();
+      return const Login();
     }
   }
 
-  getLogin() async {
+  Future<void> getLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      mobileNumber = prefs.getString(Constants.LOGIN);
+      mobileNumber = prefs.getString(Constants.login);
     });
   }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _HomePageState();
@@ -75,9 +79,9 @@ class HomePage extends StatefulWidget {
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Container(
-            margin: EdgeInsets.all(5.0),
+            margin: const EdgeInsets.all(5.0),
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
                   children: <Widget>[
                     Image.network(item, fit: BoxFit.cover, width: 1000.0),
@@ -86,7 +90,7 @@ final List<Widget> imageSliders = imgList
                       left: 0.0,
                       right: 0.0,
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
                               Color.fromARGB(200, 0, 0, 0),
@@ -106,11 +110,11 @@ final List<Widget> imageSliders = imgList
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-  final List _children = [
-    Delivery(),
-    Dining(),
-    Orders(),
-    Profile(),
+  final List<Widget> _children = [
+    const Delivery(),
+    const Dining(),
+    const Orders(),
+    const Profile(),
   ];
 
   @override
@@ -118,21 +122,21 @@ class _HomePageState extends State<HomePage> {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return new Scaffold(
+    return Scaffold(
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
           backgroundColor: colorScheme.surface,
           selectedItemColor: Colors.green,
-          unselectedItemColor: Colors.green.withOpacity(.60),
-          selectedLabelStyle: textTheme.caption,
-          unselectedLabelStyle: textTheme.caption,
+          unselectedItemColor: Colors.green.withValues(alpha: 0.60),
+          selectedLabelStyle: textTheme.bodySmall,
+          unselectedLabelStyle: textTheme.bodySmall,
           onTap: (value) {
             // Respond to item press.
             setState(() => _currentIndex = value);
           },
-          items: [
+          items: const [
             BottomNavigationBarItem(
               label: 'Delivery',
               icon: Icon(Icons.delivery_dining),
