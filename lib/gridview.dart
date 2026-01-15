@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:livemenu/model/delivery_model.dart';
-import 'package:livemenu/screens/menu.dart';
+import 'package:livemenu/menu.dart';
 
 class RestaurantGridView extends StatefulWidget {
   final List<DeliveryModel> restaurantList;

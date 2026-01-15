@@ -1,20 +1,31 @@
 buildscript {
-    ext.kotlin_version = '1.6.10'
+    ext.kotlin_version = '1.9.20'
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://storage.googleapis.com/download.flutter.io'
+        }
     }
-
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.2.2'
+        classpath 'com.android.tools.build:gradle:8.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'dev.flutter.plugin:gradle:1.0.0'
     }
+}
+
+plugins {
+    id "com.android.application" version "8.1.1" apply false
+    id "com.android.library" version "8.1.1" apply false
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://storage.googleapis.com/download.flutter.io'
+        }
     }
 }
 
@@ -26,6 +37,6 @@ subprojects {
     project.evaluationDependsOn(':app')
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+tasks.register("clean", Delete) {
+    delete rootProject.layout.buildDirectory
 }

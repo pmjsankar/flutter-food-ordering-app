@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:livemenu/model/delivery_model.dart';
-import 'package:livemenu/screens/offers.dart';
+import 'package:livemenu/offers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/checkout_model.dart';

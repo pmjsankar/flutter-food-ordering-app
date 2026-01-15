@@ -1,3 +1,9 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -21,12 +27,9 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
 android {
-    compileSdkVersion 32
+    namespace "com.pmj.livemenu" // Namespace is required for AGP 8
+    compileSdkVersion 34
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -37,9 +40,10 @@ android {
     }
 
     defaultConfig {
+        // applicationId "com.pmj.livemenu" // Replaced by namespace in AGP 8? No, applicationId is still valid for ID, namespace for R class.
         applicationId "com.pmj.livemenu"
-        minSdkVersion 16
-        targetSdkVersion 32
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -50,10 +54,6 @@ android {
             signingConfig signingConfigs.debug
         }
     }
-}
-
-flutter {
-    source '../..'
 }
 
 dependencies {
