@@ -107,6 +107,10 @@ class _Otp extends State<Otp> {
               height: 40,
             ),
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
                 onPressed: () {
                   if (otpController.text.length < 4) {
                     setInputValidation(false);

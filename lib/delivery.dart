@@ -561,8 +561,9 @@ class _Delivery extends State<Delivery> {
                                 top: 20, right: 20, left: 20, bottom: 25),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                minimumSize: const Size.fromHeight(
-                                    40), // fromHeight use double.infinity as width and 40 is the height
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                                minimumSize: const Size.fromHeight(40),
                               ),
                               onPressed: () async {
                                 var title = titleController.text;

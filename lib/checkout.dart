@@ -364,6 +364,10 @@ class _Checkout extends State<Checkout> {
                     padding: const EdgeInsets.only(
                         bottom: 15, left: 8, right: 20, top: 14),
                     child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue,
+                        foregroundColor: Colors.white,
+                      ),
                       onPressed: () {
                         // Respond to button press
                       },
@@ -374,7 +378,6 @@ class _Checkout extends State<Checkout> {
                           "MAKE PAYMENT",
                           style: TextStyle(
                             fontSize: 16.0,
-                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

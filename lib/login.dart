@@ -100,6 +100,10 @@ class _Login extends State<Login> {
               height: 20,
             ),
             ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
                 onPressed: () {
                   if (phoneController.text.length < 10) {
                     setInputValidation(false);
